@@ -14,7 +14,7 @@
      * [Example Defining and using artifacts](/gitlab/07-example-defining-and-using-artifacts.md)
 
   1. gitlab / Kubernetes (gitops) 
-     * [gitlab Kubernetes Agent with gitops - mode](/gitlab/example-gitlab-kubernetes-agent-with-gitops-mode.md)  
+     * [gitlab Kubernetes Agent with gitops - mode](/kubernetes-gitlab-gitops/example-gitlab-kubernetes-agent-with-gitops-mode.md)  
 
   1. gitlab / Kubernetes (CI/CD - old-school mit kubectl) 
      * [Vorteile gitlab-agent](/kubernetes/gitlab/advantage-gitlab-agent.md)
