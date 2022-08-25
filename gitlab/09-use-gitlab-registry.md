@@ -1,5 +1,12 @@
 # Use gitlab - registry
 
+## Dockerfile - RootLevel 
+
+```
+FROM ubuntu:latest
+RUN touch MYFILE 
+```
+
 ## .gitlab-ci.yml 
 
 ```
