@@ -13,13 +13,16 @@
      * [Rules](/gitlab/05-rules.md)
      * [Example Defining and using artifacts](/gitlab/07-example-defining-and-using-artifacts.md)
 
+  1. gitlab ci/cd - docker
+     * [Docker image automatisiert bauen](/gitlab/)
+
+  1. gitlab / Kubernetes CI/CD - old.old.schol with kubectl without agent)
+     * [gitlab kubectl without agent](/gitlab/10-using-kubectl-old-style.md)
+
   1. gitlab / Kubernetes (gitops) 
      * [gitlab Kubernetes Agent with gitops - mode](/kubernetes-gitlab-gitops/example-gitlab-kubernetes-agent-with-gitops-mode.md)  
 
-  1. gitlab / Kubernetes CI/CD - old.old.schol with kubectl without agent)
-     * 
-
-  1. gitlab / Kubernetes (CI/CD - old-school mit kubectl) 
+  1. gitlab / Kubernetes (CI/CD - old-school mit kubectl aber agent) 
      * [Vorteile gitlab-agent](/kubernetes/gitlab/advantage-gitlab-agent.md)
      * [Step 1: Installation gitlab-agent for kubernetes](/kubernetes-gitlab-ci-cd/99-gitlab-agent-with-kubectl.md)
      * [Step 2: Debugging KUBE_CONTEXT - Community Edition](kubernetes-gitlab-ci-cd/04-fix-problem-context-auto-devops.md)
