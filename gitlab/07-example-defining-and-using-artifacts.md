@@ -46,7 +46,7 @@ create_txt:
 
 ```
 
-## Artifakten und Name aus Variable vergeben 
+## Artifakte und Name aus Variable vergeben 
 
   * If your branch-name contains forward slashes
     * (for example feature/my-feature) 
