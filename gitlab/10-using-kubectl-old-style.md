@@ -9,12 +9,11 @@
 
 3. file .gitlab-ci.yml anpassen
 
+```
+
 variables:
    KUBECONFIG_SECRET: $KUBECONFIG_SECRET
-```
 
-
-```
 build-version:       # This job runs in the build stage, which runs first.
   stage: build
   image: 
