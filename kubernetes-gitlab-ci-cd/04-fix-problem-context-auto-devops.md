@@ -7,6 +7,14 @@ kubectl does not work, because KUBECONFIG is not set properly
 
 ```
 
+## What does not work ? 
+
+```
+
+
+```
+
+
 ## Find out the context (without setting it)
 
 ```
@@ -17,8 +25,7 @@ deploy:
     name: bitnami/kubectl:latest
     entrypoint: [""]
   script:
-    - set
-    - kubectl config get-contexts
+    - kubectl cluster-info
 ```
 
 ## Test Context 
