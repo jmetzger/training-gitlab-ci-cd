@@ -40,6 +40,8 @@ build-version:       # This job runs in the build stage, which runs first.
     - kubectl get pods 
 ```
 
+
+```
 4. Zugangsdaten auf master-server auslesen und in den Zwischenspeicher kopieren
 
 microk8s config
