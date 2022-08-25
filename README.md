@@ -14,7 +14,7 @@
      * [Example Defining and using artifacts](/gitlab/07-example-defining-and-using-artifacts.md)
 
   1. gitlab ci/cd - docker
-     * [Docker image automatisiert bauen](/gitlab/)
+     * [Docker image automatisiert bauen](/gitlab/09-use-gitlab-registry.md)
 
   1. gitlab / Kubernetes CI/CD - old.old.schol with kubectl without agent)
      * [gitlab kubectl without agent](/gitlab/10-using-kubectl-old-style.md)
