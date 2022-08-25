@@ -27,7 +27,7 @@ build-version:       # This job runs in the build stage, which runs first.
     - ls -la
     - kubectl version --client
     - echo "kubeconfig aufsetzen"
-    - mkdir ~/.kube
+    - mkdir -p ~/.kube
     - echo "$KUBECONFIG_SECRET" > ~/.kube/config
     - ls -la ~/.kube/config
     - cat ~/.kube/config
