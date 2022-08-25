@@ -85,7 +85,7 @@ helm upgrade --install gitlab-agent gitlab/gitlab-agent \
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: nginx-deployment-gitops
 spec:
   selector:
     matchLabels:
@@ -112,5 +112,5 @@ spec:
  
 ```
 kubectl logs -n gitlab-agent-tn1 deploy/gitlab-agent
- 
+```
  
