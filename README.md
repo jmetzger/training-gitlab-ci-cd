@@ -1,9 +1,6 @@
 # Gitlab CI/CD
 
 ## Agenda 
-  
-  1. Kubernetes (Refresher) 
-     * [Aufbau von Kubernetes](kubernetes/architecture.md) 
 
   1. gitlab ci/cd
      * [Overview](/gitlab/01-ci-cd-overview.md)
@@ -15,6 +12,9 @@
 
   1. gitlab ci/cd - docker
      * [Docker image automatisiert bauen](/gitlab/09-use-gitlab-registry.md)
+
+  1. Kubernetes (Refresher) 
+     * [Aufbau von Kubernetes](kubernetes/architecture.md) 
 
   1. gitlab / Kubernetes CI/CD - old.old.schol with kubectl without agent)
      * [gitlab kubectl without agent](/gitlab/10-using-kubectl-old-style.md)
