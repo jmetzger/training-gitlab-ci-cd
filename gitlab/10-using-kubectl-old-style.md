@@ -33,10 +33,11 @@ build-version:       # This job runs in the build stage, which runs first.
     - kubectl cluster-info 
     - kubectl get pods
     - echo "Deploying..."
-    - kubectl apply -f manifests/deploy.yml
+# - kubectl apply -f manifests/deploy.yml
     - sleep 2
     - echo "And now..."
     - kubectl get pods 
+```
 
 4. Zugangsdaten auf master-server auslesen und in den Zwischenspeicher kopieren
 
