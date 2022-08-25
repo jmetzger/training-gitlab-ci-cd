@@ -34,6 +34,7 @@ deploy-job:      # This job runs in the deploy stage.
     
   script:
     - echo "Deploying application..."
+    - kubectl version
     - pwd
     - ls -la
     - env
