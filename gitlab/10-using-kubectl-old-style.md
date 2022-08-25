@@ -21,6 +21,7 @@ build-version:       # This job runs in the build stage, which runs first.
   image: 
 #    name: dtzar/helm-kubectl:3.7.1
     name: bitnami/kubectl:latest
+    entrypoint: [""]
   script:
     - echo "Show use our repo"
     - cd $CI_PROJECT_DIR
