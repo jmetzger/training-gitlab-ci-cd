@@ -10,14 +10,6 @@ kubectl does not work, because KUBECONFIG is not set properly
 ## What does not work ? 
 
 ```
-
-
-```
-
-
-## Find out the context (without setting it)
-
-```
 # This overwrites auto devops completely 
 #.gitlab-ci.yml 
 deploy:
