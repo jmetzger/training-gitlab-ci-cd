@@ -19,7 +19,11 @@ build-image:       # This job runs in the build stage, which runs first.
   services:
      - docker:20.10.10-dind
   script:
+    - echo "user:"$CI_REGISTRY_USER
+    - echo "pass:"$CI_REGISTRY_PASSWORD
+    - echo "registry:"$CI_REGISTRY
     - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
     - docker build -t $CI_REGISTRY_IMAGE .
     - docker push $CI_REGISTRY_IMAGE
     - echo "BUILD for $CI_REGISTRY_IMAGE done"
+```
