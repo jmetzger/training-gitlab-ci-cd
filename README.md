@@ -31,5 +31,8 @@
   1. gitlab / Kubernetes (CI/CD - Auto Devops) 
      * [Was ist Auto DevOps](/gitlab-ci-cd/was-ist-autodevops.md)
      * [Debugging KUBE_CONTEXT - Community Edition](kubernetes-gitlab-ci-cd/04-fix-problem-context-auto-devops.md)
+     
+  1. Documentation 
+     * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
 
   
