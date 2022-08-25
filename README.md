@@ -11,7 +11,8 @@
      * [Example Defining and using artifacts](/gitlab/07-example-defining-and-using-artifacts.md)
 
   1. gitlab ci/cd - docker
-     * [Docker image automatisiert bauen](/gitlab/09-use-gitlab-registry.md)
+     * [Docker image automatisiert bauen - gitlab registry](/gitlab/09-use-gitlab-registry.md)
+     * [Docker image automatisiert bauen - docker hub](/gitlab/09a-docker-build-use-docker-hub.md)
 
   1. Kubernetes (Refresher) 
      * [Aufbau von Kubernetes](kubernetes/architecture.md) 
