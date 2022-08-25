@@ -1,4 +1,4 @@
-# kubectl (old style) 
+# kubectl (old style without agent) 
 
 ## Walkthrough 
 
