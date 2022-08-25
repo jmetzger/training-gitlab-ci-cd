@@ -120,6 +120,7 @@ create_txt:
     - mkdir -p path/some-xyz
     - echo "some" > path/some-xyz/testtext.txt 
     - env
+    - echo "TAG ? $CI_COMMIT_TAG" 
   artifacts:
     paths:
       - path/
