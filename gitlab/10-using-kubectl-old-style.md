@@ -12,31 +12,7 @@
 variables:
    KUBECONFIG_SECRET: $KUBECONFIG_SECRET
 ```
-```
-build-version:       # This job runs in the build stage, which runs first.
-  stage: build
-  image: 
-#    name: dtzar/helm-kubectl:3.7.1
-    name: ubuntu:latest
-  script:
-    - snap install --classic kubectl 
-    - echo "Show use our repo"
-    - cd $CI_PROJECT_DIR
-    - ls -la
-    - kubectl version --client
-    - echo "kubeconfig aufsetzen"
-    - mkdir ~/.kube
-    - echo "$KUBECONFIG_SECRET" > ~/.kube/config
-    - ls -la ~/.kube/config
-    - cat ~/.kube/config
-    - kubectl cluster-info 
-    - kubectl get pods
-    - echo "Deploying..."
-    - kubectl apply -f manifests/deploy.yml
-    - sleep 2
-    - echo "And now..."
-    - kubectl get pods 
-```
+
 
 ```
 build-version:       # This job runs in the build stage, which runs first.
