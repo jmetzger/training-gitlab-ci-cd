@@ -43,6 +43,30 @@ build-version:       # This job runs in the build stage, which runs first.
 
 
 ```
+# manifests anlegen in manifests/01-deploy.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80        
+```
+
+
+```
 4. Zugangsdaten auf master-server auslesen und in den Zwischenspeicher kopieren
 
 microk8s config
