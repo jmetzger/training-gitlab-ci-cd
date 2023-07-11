@@ -1,4 +1,4 @@
-# Pedefined vars preset in the job 
+# Predefined vars preset in the job 
 
 ## Example to show them 
 
