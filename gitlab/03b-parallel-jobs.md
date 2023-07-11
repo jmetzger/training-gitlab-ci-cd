@@ -14,20 +14,21 @@ stages:
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
   script:
-    - echo "Compiling the code..."
+    - sleep 120
+    - echo "after 120 seconds -> Compiling the code..."
     - echo "Compile complete."
 
 build-job2:
-  stage: build:
+  stage: build
   script:
-    - sleep 60
-    - echo "now also done"  
+    - echo "ready even ealier ? now also done"  
 
 deploy-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   script:
     - echo "Deploying application..."
     - echo "Application successfully deployed."
+
 
 ```
 
