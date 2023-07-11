@@ -48,11 +48,10 @@ pom.xml
     <!-- The output .war file's name, which will be the name of the webapp. -->
     <finalName>${project.artifactId}</finalName>
   </build>
-
+</project>
 ```
 
-## Part 2:  /src/main/webapp/index.html 
-
+## Part 2:  src/main/webapp/index.html 
 ```
 <!DOCTYPE html>
 <html>
@@ -66,7 +65,7 @@ pom.xml
 </html>
 ```
 
-## Part 3: /src/main/java/io/happycoding/servlets/HelloWorldServlets.java
+## Part 3: src/main/java/io/happycoding/servlets/HelloWorldServlets.java
 
 ```
 package io.happycoding.servlets;
