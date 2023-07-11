@@ -65,7 +65,7 @@ pom.xml
 </html>
 ```
 
-## Part 3: src/main/java/io/happycoding/servlets/HelloWorldServlets.java
+## Part 3: src/main/java/io/happycoding/servlets/HelloWorldServlet.java
 
 ```
 package io.happycoding.servlets;
