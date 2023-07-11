@@ -92,7 +92,22 @@ public class HelloWorldServlet extends HttpServlet {
 ## Part 4: .gitlab-ci.yml 
 
 ```
+# create
+.gitlab-ci.yml
+# file
+```
 
+```
+image: maven:latest
 
+stages:          # List of stages for jobs, and their order of execution
+  - build
 
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
+  script:
+    - mvn package
+    - ls -la
+    - cd target
+    - ls -la
 ```
