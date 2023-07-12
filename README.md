@@ -6,6 +6,7 @@
      * [Architecture](/gitlab/architecture.md)
      * [Overview](/gitlab/01-ci-cd-overview.md)
      * [SaaS vs. On-Premise (Self Hosted)](gitlab/overview/saas-vs-on-premise.md)
+     * [Jenkins mit Gitlab vs. gitlab ci/cd](gitlab/overview/jenkins-gitlab-vs-gitlab-cicd.md) 
      * [Using the test - template](/gitlab/02-example-testtemplate.md)
      * [Examples running stages](/gitlab/03-example-running-stages.md) 
      * [Predefined Vars](/gitlab/04-predefined-vars.md)
