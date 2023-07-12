@@ -197,3 +197,52 @@ deploy-job:
 
 ## Uploading it to tomcat - server 
 
+### 1. Todos beforehand 
+
+  * Setup tomcat - server
+  * Create a public private  - key for root or user that can access tomcat folder
+  * Which directory ?:
+    * /var/lib/tomcat9/webapps
+  * Which server ?:
+    * e.g. 
+
+##### 2. On tomcat machine 
+
+```
+# id -> root
+ssh-keygen
+```
+
+##### 3. in gitlab -> project 
+
+```
+# Set variables under
+Settings -> CI/CD -> Variables
+(Do not protect them)
+
+# Fill it with with data from tomcat
+
+TOMCAT_SERVER_IP
+# This will be the private key, we created
+# content of /root/.ssh/id_rsa
+TOMCAT_SERVER_SSH_KEY
+TOMCAT_SERVER_WEBDIR
+```
+
+##### 4. Change deploy - job as follows 
+
+```
+deploy-job:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+
+  script:
+    - echo "hello deployment"
+    - ls -la
+
+```
+
+
+
+
