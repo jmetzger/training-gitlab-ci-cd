@@ -2,4 +2,5 @@
 
 ## Overview 
 
-![Overview](https://docs.gitlab.com/ee/development/img/architecture_simplified_v14_9.png])
+![image](https://github.com/jmetzger/training-gitlab-ci-cd/assets/1933318/cbd998b1-cb5e-4978-889c-6213eaac2515)
+
