@@ -106,6 +106,7 @@ stages:          # List of stages for jobs, and their order of execution
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
   script:
+    - ls -la
     - mvn package
     - ls -la
     - cd target
