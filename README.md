@@ -14,7 +14,7 @@
      * [Example Defining and using artifacts](/gitlab/07-example-defining-and-using-artifacts.md)
 
   1. gitlab - wann laufen jobs ? 
-     * [Nur händischen über Pipelines starten](gitlab/rules/only-web.md)
+     * [Job nur händisch über Pipelines starten](gitlab/rules/only-web.md)
 
   1. gitlab ci/cd - docker
      * [Docker image automatisiert bauen - gitlab registry](/gitlab/09-use-gitlab-registry.md)
