@@ -37,6 +37,7 @@
      
   1. Tipps&Tricks 
      * [Passwörter in Kubernetes verschlüsselt speichern](kubernetes/sealed-secrets.md)
+     * [Image/Container debuggen in mit gitlab ci/cd](gitlab/debug/container-kennenlernen.md)
      
   1. Documentation 
      * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
