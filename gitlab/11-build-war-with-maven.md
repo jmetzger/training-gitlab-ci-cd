@@ -111,3 +111,89 @@ build-job:       # This job runs in the build stage, which runs first.
     - cd target
     - ls -la
 ```
+
+## Optional Part 4a: Also create artifact 
+
+```
+image: maven:latest
+
+variables:
+  PROJECT_ARTIFACTS_ID: roadrunner
+  
+
+stages:          # List of stages for jobs, and their order of execution
+  - build
+
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
+#  only:
+#    - web
+  script:
+    - mvn package
+    - ls -la
+    - cd target
+    - ls -la
+  artifacts:
+   paths:
+      - target/$PROJECT_ARTIFACTS_ID.war # no '$VAR' or "$VAR" here, it does not work
+```
+
+## Optional Part 4b: Artifacts with wildcard 
+
+```
+image: maven:latest
+
+stages:          # List of stages for jobs, and their order of execution
+  - build
+
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
+#  only:
+#    - web
+  script:
+    - mvn package
+    - ls -la
+    - cd target
+    - ls -la
+  artifacts:
+   paths:
+      - target/*.war # no '$VAR' or "$VAR" here, it does not work
+                     # All war-files shall be artifacts 
+```
+
+## Optional Part 4c: Increasing performance, but not doing git checkout
+
+```
+image: maven:latest
+
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - deploy
+
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
+#  only:
+#    - web
+  script:
+    - mvn package
+    - ls -la
+    - cd target
+    - ls -la
+  artifacts:
+   paths:
+      - target/*.war # no '$VAR' or "$VAR" here, it does not work
+                     # All war-files shall be artifacts 
+
+deploy-job:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+
+  script:
+    - echo "hello deployment"
+    - ls -la
+
+```
+
+## Uploading it to tomcat - server 
+
