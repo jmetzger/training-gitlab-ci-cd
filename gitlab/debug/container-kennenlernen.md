@@ -2,6 +2,10 @@
 
 ```
 # in .gitlab-ci.yml
+
+# standardmäßig wird in ruby image verwendet (wenn nichts anderes genannt wird) 
+# image: maven
+
 stages:          # List of stages for jobs, and their order of execution
   - build
 
