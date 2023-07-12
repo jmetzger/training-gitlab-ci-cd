@@ -16,6 +16,10 @@
 
   1. gitlab - wann laufen jobs ? 
      * [Job nur händisch über Pipelines starten](gitlab/rules/only-web.md)
+    
+  1. Exercises
+    * [build with maven and using artifacts](https://github.com/jmetzger/training-gitlab-ci-cd/blob/main/gitlab/11-build-war-with-maven.md)
+    
 
   1. gitlab ci/cd - docker
      * [Docker image automatisiert bauen - gitlab registry](/gitlab/09-use-gitlab-registry.md)
