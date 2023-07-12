@@ -10,6 +10,7 @@
      * [Using the test - template](/gitlab/02-example-testtemplate.md)
      * [Examples running stages](/gitlab/03-example-running-stages.md) 
      * [Predefined Vars](/gitlab/04-predefined-vars.md)
+     * [Variablen definieren](/gitlab/variables.md)
      * [Rules](/gitlab/05-rules.md)
      * [Example Defining and using artifacts](/gitlab/07-example-defining-and-using-artifacts.md)
 
