@@ -8,7 +8,7 @@ stages:
   
 show_env:
   stage: build 
-  scripts:
+  script:
     - env 
     - pwd 
 
