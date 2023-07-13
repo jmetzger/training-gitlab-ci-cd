@@ -6,7 +6,8 @@
 FROM ubuntu:latest
 # 
 RUN  apt-get update && \
-     apt-get install -y openssh-client  
+     apt-get install -y openssh-client  && \
+     rm -rf /var/lib/apt/lists/*
 COPY good.sh /usr/local/bin/better.sh
 ```
 
