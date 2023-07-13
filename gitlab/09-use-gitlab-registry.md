@@ -4,7 +4,10 @@
 
 ```
 FROM ubuntu:latest
-RUN touch MYFILE 
+# 
+RUN  apt-get update && \
+     apt-get install -y openssh-client  
+COPY good.sh /usr/local/bin/better.sh
 ```
 
 ## .gitlab-ci.yml 
