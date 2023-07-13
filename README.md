@@ -14,6 +14,9 @@
      * [Rules](/gitlab/05-rules.md)
      * [Example Defining and using artifacts](/gitlab/07-example-defining-and-using-artifacts.md)
 
+  1. gitlab-ci - Workflows
+     * [Workflows + only start by starting pipeline](/gitlab/global/workflow.md)
+
   1. gitlab - wann laufen jobs ? 
      * [Job nur händisch über Pipelines starten](gitlab/rules/only-web.md)
     
