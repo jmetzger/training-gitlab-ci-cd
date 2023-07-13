@@ -2,6 +2,15 @@
 
 ## create good.sh in root-folder of repo (git) 
 
+```
+#!/bin/bash
+
+echo "good things start now"
+ls -la
+date
+
+```
+
 ## Create gitlab-ci.yml 
 
 ```
