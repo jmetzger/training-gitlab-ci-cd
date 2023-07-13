@@ -33,7 +33,8 @@
   1. Documentation 
      * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
      * [.gitlab-ci.yml Reference](https://docs.gitlab.com/ee/ci/yaml/)
-     * [Referenz: workflow](https://docs.gitlab.com/ee/ci/yaml/#workflow)
+     * [Referenz: global -> workflow](https://docs.gitlab.com/ee/ci/yaml/#workflow)
+     * [Referenz: global -> default](https://docs.gitlab.com/ee/ci/yaml/#default)
      
 ## Backlog 
 
