@@ -2,11 +2,13 @@
 
 ## Agenda 
 
-  1. gitlab ci/cd
+  1. gitlab ci/cd (Überblick)
      * [Architecture](/gitlab/architecture.md)
      * [Overview](/gitlab/01-ci-cd-overview.md)
      * [SaaS vs. On-Premise (Self Hosted)](gitlab/overview/saas-vs-on-premise.md)
      * [Jenkins mit Gitlab vs. gitlab ci/cd](gitlab/overview/jenkins-gitlab-vs-gitlab-cicd.md) 
+
+  1. gitlab ci/cd (Praxis I) 
      * [Using the test - template](/gitlab/02-example-testtemplate.md)
      * [Examples running stages](/gitlab/03-example-running-stages.md) 
      * [Predefined Vars](/gitlab/04-predefined-vars.md)
@@ -14,9 +16,12 @@
      * [Rules](/gitlab/05-rules.md)
      * [Example Defining and using artifacts](/gitlab/07-example-defining-and-using-artifacts.md)
 
+  1. gitlab ci/cd (Praxis II)
+     * [Mehrzeile Kommandos in gitlab ci-cd ausführen](/gitlabs/jobs/script/multiline.md)
+
   1. gitlab-ci - Workflows
      * [Workflows + only start by starting pipeline](/gitlab/global/workflow.md)
-
+    
   1. gitlab - wann laufen jobs ? 
      * [Job nur händisch über Pipelines starten](gitlab/rules/only-web.md)
     
