@@ -24,6 +24,14 @@
      * [Docker image automatisiert bauen - gitlab registry](/gitlab/09-use-gitlab-registry.md)
      * [Docker image automatisiert bauen - docker hub](/gitlab/09a-docker-build-use-docker-hub.md)
 
+  1. Tipps&Tricks 
+     * [Image/Container debuggen in mit gitlab ci/cd](gitlab/debug/container-kennenlernen.md)
+     
+  1. Documentation 
+     * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
+     
+## Backlog 
+
   1. Kubernetes (Refresher) 
      * [Aufbau von Kubernetes](kubernetes/architecture.md) 
 
@@ -32,7 +40,7 @@
 
   1. gitlab / Kubernetes (gitops) 
      * [gitlab Kubernetes Agent with gitops - mode](/kubernetes-gitlab-gitops/example-gitlab-kubernetes-agent-with-gitops-mode.md)  
-
+     
   1. gitlab / Kubernetes (CI/CD - old-school mit kubectl aber agent) 
      * [Vorteile gitlab-agent](/kubernetes/gitlab/advantage-gitlab-agent.md)
      * [Step 1: Installation gitlab-agent for kubernetes](/kubernetes-gitlab-ci-cd/99-gitlab-agent-with-kubectl.md)
@@ -43,13 +51,7 @@
   1. gitlab / Kubernetes (CI/CD - Auto Devops) 
      * [Was ist Auto DevOps](/gitlab-ci-cd/was-ist-autodevops.md)
      * [Debugging KUBE_CONTEXT - Community Edition](kubernetes-gitlab-ci-cd/04-fix-problem-context-auto-devops.md)
-     
-  1. Tipps&Tricks 
-     * [Passwörter in Kubernetes verschlüsselt speichern](kubernetes/sealed-secrets.md)
-     * [Image/Container debuggen in mit gitlab ci/cd](gitlab/debug/container-kennenlernen.md)
-     
-  1. Documentation 
-     * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
-     
 
+  1. Tipps&Tricks
+     * [Passwörter in Kubernetes verschlüsselt speichern](kubernetes/sealed-secrets.md)
   
