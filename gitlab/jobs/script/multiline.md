@@ -78,6 +78,3 @@ build-stage:
 
   * https://docs.gitlab.com/ee/ci/yaml/script.html#split-long-commands
   * https://stackoverflow.com/questions/3790454/how-do-i-break-a-string-in-yaml-over-multiple-lines/21699210#21699210
-   
-
-  * https://docs.gitlab.com/ee/ci/yaml/script.html#split-long-commands
