@@ -48,8 +48,8 @@ dummy-build:
    script:
      - echo "dummy build"
    rules:
-     - if: $BUILD_PROJECT1 == "true" || $BUILD_PROJECT2 == "true"
-       when: never
+     - if: $BUILD_PROJECT1 != "true" && $BUILD_PROJECT2 != "true"
+
 
 ```
 
