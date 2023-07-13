@@ -33,11 +33,23 @@ stages:          # List of stages for jobs, and their order of execution
   - build
 
 include:
+ 
+include:
    - local: project1/project1.gitlab-ci.yml
-
+     rules:
+       - if: $BUILD_PROJECT1 == "true"
 
    - local: project2/project2.gitlab-ci.yml
+     rules:
+       - if: $BUILD_PROJECT2 == "true"
 
+dummy-build:
+   stage: build
+   script:
+     - echo "dummy build"
+   rules:
+     - if: $BUILD_PROJECT1 == "true" || $BUILD_PROJECT2 == "true"
+       when: never
 
 ```
 
