@@ -29,6 +29,7 @@
      
   1. Documentation 
      * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
+     * [.gitlab-ci.yml Reference](https://docs.gitlab.com/ee/ci/yaml/)
      
 ## Backlog 
 
