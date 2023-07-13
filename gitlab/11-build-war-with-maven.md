@@ -213,7 +213,7 @@ deploy-job:
 
 ```
 # id -> root
-ssh-keygen
+ssh-keygen -t rsa
 ```
 
 ##### 3. in gitlab -> project 
