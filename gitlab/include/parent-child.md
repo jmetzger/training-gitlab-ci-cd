@@ -9,6 +9,19 @@
 1x project2/project2.gitlab-ci.yml
 ```
 
+## Step 1a: gitlab-ci.yml (simple)
+
+```
+stages:          # List of stages for jobs, and their order of execution
+  - build
+
+include:
+   - project1/project1.gitlab-ci.yml
+   - project2/project2.gitlab-ci.yml
+
+
+```
+
 ## Step 2: project1/project1.gitlab-ci.yml 
 
 ```
