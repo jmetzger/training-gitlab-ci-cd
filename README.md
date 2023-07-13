@@ -20,8 +20,11 @@
      * [Mehrzeile Kommandos in gitlab ci-cd ausführen](/gitlab/jobs/script/multiline.md)
      * [Kommandos auf Zielsystem mit ssh ausführen (auch multiline)](gitlab/jobs/script/ssh-multiline.md)
 
-  1. gitlab-ci - Workflows
+  1. gitlab-ci/cd - Workflows
      * [Workflows + only start by starting pipeline](/gitlab/global/workflow.md)
+
+  1. gitlab - ci/cd - Pipelines strukturieren
+     * [Includes parent/child pattern](gitlab/include/parent-child.md)
     
   1. gitlab - wann laufen jobs ? 
      * [Job nur händisch über Pipelines starten](gitlab/rules/only-web.md)
