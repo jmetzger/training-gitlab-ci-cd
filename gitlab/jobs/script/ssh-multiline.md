@@ -65,5 +65,8 @@ deploy-job:
         echo "hello V4"
         ls -la
       HEREDOC
+     - echo 'V5 - copy script and execute'
+     - scp good.sh root@$TOMCAT_SERVER_IP:/usr/local/bin/better.sh
+     - ssh root@$TOMCAT_SERVER_IP -C "chmod u+x /usr/local/bin/better.sh; better.sh"
 
 ```
