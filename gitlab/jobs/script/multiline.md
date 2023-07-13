@@ -27,6 +27,7 @@ workflow:
   - if: $CI_PIPELINE_SOURCE == "web"
 
 build-stage:
+  stage: build
   variables:
     CMD: |
       echo hello-you; 
