@@ -57,9 +57,20 @@ build-stage:
       tr a-z A-Z << END_TEXT
         one two three
         four five six
-      END_TEXT 
+      END_TEXT
+  - >
+      echo "First command line
+      is split over two lines."
+
+      echo "Second command line."
+ 
 
 ```
 
 ## Run Pipeline (need to trigger manually) 
 
+
+
+## Reference 
+
+  * https://docs.gitlab.com/ee/ci/yaml/script.html#split-long-commands
