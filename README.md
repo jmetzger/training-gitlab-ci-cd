@@ -17,7 +17,7 @@
      * [Example Defining and using artifacts](/gitlab/07-example-defining-and-using-artifacts.md)
 
   1. gitlab ci/cd (Praxis II)
-     * [Mehrzeile Kommandos in gitlab ci-cd ausführen](/gitlabs/jobs/script/multiline.md)
+     * [Mehrzeile Kommandos in gitlab ci-cd ausführen](/gitlab/jobs/script/multiline.md)
 
   1. gitlab-ci - Workflows
      * [Workflows + only start by starting pipeline](/gitlab/global/workflow.md)
