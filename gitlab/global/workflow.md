@@ -21,3 +21,7 @@ build-stage:
     - echo "hello build" 
 
 ```
+
+## More information about possible values for $CI_PIPELINE_SOURCE 
+
+  * https://docs.gitlab.com/ee/ci/jobs/job_control.html#common-if-clauses-for-rules
