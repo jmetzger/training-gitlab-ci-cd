@@ -244,6 +244,30 @@ deploy-job:
     - echo "hello deployment"
     - ls -la
 
+deploy-job:
+  image: ubuntu
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+
+  before_script:
+    - apt -y update
+    - apt install -y openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$TOMCAT_SERVER_SSH_KEY" | tr -d '\r' | ssh-add -
+    - ls -la
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $TOMCAT_SERVER_IP >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - echo $TOMCAT_SERVER_SSH_KEY
+  script:
+    #- chmod 600 id_rsa
+    #- scp -i id_rsa -o StrictHostKeyChecking=no target/*.war root@$TOMCAT_SERVER_IP:$TOMCAT_SERVER_WEBDIR 
+     - scp -o StrictHostKeyChecking=no target/*.war root@$TOMCAT_SERVER_IP:$TOMCAT_SERVER_WEBDIR
+     - cd $TOMCAT_SERVER_WEBDIR
+     - ls -la
+
 ```
 
 
