@@ -41,6 +41,10 @@
      * [.gitlab-ci.yml Reference](https://docs.gitlab.com/ee/ci/yaml/)
      * [Referenz: global -> workflow](https://docs.gitlab.com/ee/ci/yaml/#workflow)
      * [Referenz: global -> default](https://docs.gitlab.com/ee/ci/yaml/#default)
+
+  1. Documentation - Includes
+     * [includes](https://docs.gitlab.com/ee/ci/yaml/includes.html)
+     * [includes -> rules](https://docs.gitlab.com/ee/ci/yaml/includes.html#use-rules-with-include)
      
 ## Backlog 
 
