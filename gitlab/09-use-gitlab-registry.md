@@ -27,6 +27,7 @@ build-image:       # This job runs in the build stage, which runs first.
     - echo "registry:"$CI_REGISTRY
     - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
     - docker build -t $CI_REGISTRY_IMAGE .
+    - docker images
     - docker push $CI_REGISTRY_IMAGE
     - echo "BUILD for $CI_REGISTRY_IMAGE done"
 ```
