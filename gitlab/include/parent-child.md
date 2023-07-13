@@ -22,6 +22,26 @@ include:
 
 ```
 
+## Step 1b: gitlab-ci.yml (start with pipeline start and variable setting
+
+```
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+
+stages:          # List of stages for jobs, and their order of execution
+  - build
+
+include:
+   - local: project1/project1.gitlab-ci.yml
+
+
+   - local: project2/project2.gitlab-ci.yml
+
+
+```
+
+
 ## Step 2: project1/project1.gitlab-ci.yml 
 
 ```
