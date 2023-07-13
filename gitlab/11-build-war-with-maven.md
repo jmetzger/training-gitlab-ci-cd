@@ -165,7 +165,9 @@ build-job:       # This job runs in the build stage, which runs first.
 ## Optional Part 4c: Increasing performance, but not doing git checkout
 
 ```
-image: maven:latest
+
+default:
+  image: maven:latest
 
 stages:          # List of stages for jobs, and their order of execution
   - build
@@ -189,7 +191,7 @@ deploy-job:
   stage: deploy
   variables:
     GIT_STRATEGY: none
-
+  image: busybox 
   script:
     - echo "hello deployment"
     - ls -la
