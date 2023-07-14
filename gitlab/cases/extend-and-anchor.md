@@ -1,5 +1,11 @@
 # extend and anchor 
 
+## Hinweis:
+
+ * Dinge, die wiederverwendet werden sollen, müssen vorher definiert sein, in der Datei
+ * d.h. .base vor myjob
+ * .default_scripts bzw &default_scripts vor Verwendung als *default_scripts 
+
 ## gitlab-ci.yml 
 
 ```
