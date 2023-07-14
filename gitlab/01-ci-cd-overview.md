@@ -85,6 +85,7 @@ build_a:
 build_b:
   stage: build
   script:
+    - sleep 20
     - echo "This job builds something else slowly."
 
 test_a:
