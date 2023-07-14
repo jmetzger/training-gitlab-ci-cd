@@ -8,8 +8,7 @@ include:
 
 container_scanning:
   variables:
-     CS_DEFAULT_BRANCH_IMAGE: $CI_REGISTRY_IMAGE/$CI_DEFAULT_BRANCH:$CI_COMMIT_SHA
-
+     CS_IMAGE: registry.gitlab.com/training.tn11/jochentest1:latest
 ```
 
 
