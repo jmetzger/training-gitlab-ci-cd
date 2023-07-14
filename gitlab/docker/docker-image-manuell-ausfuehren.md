@@ -38,5 +38,11 @@ docker login registry.gitlab.com/training.tn11 -utraining.tn11 -p<Dein Access To
 
 docker run -it registry.gitlab.com/training.tn11/jochentest1 bash 
 
-7. ist ssh drin ? 
+7. ist ssh drin ?
+# hinter dem Prompt eingeben
+```
+
+```
+ssh
+cat /etc/os-release 
 ```
