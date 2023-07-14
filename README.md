@@ -36,6 +36,7 @@
   1. gitlab ci/cd - docker
      * [Docker image automatisiert bauen - gitlab registry](/gitlab/09-use-gitlab-registry.md)
      * [Docker image automatisiert bauen - docker hub](/gitlab/09a-docker-build-use-docker-hub.md)
+     * [Selbst gebauten Container manuell ausführen](/gitlab/docker/docker-image-manuell-ausfuehren.md)
 
   1. Tipps&Tricks 
      * [Image/Container debuggen in mit gitlab ci/cd](gitlab/debug/container-kennenlernen.md)
