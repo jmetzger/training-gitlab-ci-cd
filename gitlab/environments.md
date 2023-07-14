@@ -5,7 +5,7 @@
 1. In Operate -> Deployment  neues Environment Testing anlegen 
 keine URL angeben - nur name 
 
-2. In Settings->CI/CD-> Variables
+2. In Project -> Settings->CI/CD-> Variables
 
 Variable 1:
 CODE_BRANCH   testing   (Environment: Testing) 
