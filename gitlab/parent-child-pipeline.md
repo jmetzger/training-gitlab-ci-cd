@@ -43,4 +43,6 @@ project2.build-job:
     - echo $CI_PIPELINE_SOURCE
 ```
 
+## Refs:
 
+  * https://docs.gitlab.com/ee/ci/pipelines/downstream_pipelines.html
