@@ -34,7 +34,7 @@
      * [Auch weiterlaufen, wenn Job fehlschlägt](gitlab/jobs/allow_failure.md)
     
   1. gitlab - setzen von Variablen
-     * [Variablen für angepasste Builds verwenden und scheduled pipeline](s.md)
+     * [Variablen für angepasste Builds verwenden und scheduled pipeline](gitlab/cases/variables-built-change.md)
     
   1. Exercises
      * [build with maven and using artifacts](https://github.com/jmetzger/training-gitlab-ci-cd/blob/main/gitlab/11-build-war-with-maven.md)
