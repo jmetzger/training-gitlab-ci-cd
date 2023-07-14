@@ -16,3 +16,27 @@ build-new:
 ```
 
 ## Ausführen und glücklich sein ! 
+
+
+## Einloggen mit Docker Credentials 
+
+```
+echo -n "username:access-token" | base64 
+
+DOCKER_AUTH_CONFIG
+
+"auths": {
+  "registry.gitlab.com/training.tn11": {
+    "auth": "LSBuIHRyYWluaW5nMTE6Z2xwYXQtTlpILXNTNXhtNEZBeFdTekpBZnkK"
+  }
+}
+
+```
+
+```
+Eintragen von DOCKER_AUTH_CONFIG -> in Settings -> CI/CD -> Variables
+```
+
+## Refs:
+
+  * https://mherman.org/blog/gitlab-ci-private-docker-registry/
