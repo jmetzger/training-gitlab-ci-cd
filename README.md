@@ -24,7 +24,8 @@
      * [Workflows + only start by starting pipeline](/gitlab/global/workflow.md)
 
   1. gitlab - ci/cd - Pipelines strukturieren / Templates 
-     * [Includes parent/child pattern](gitlab/include/parent-child.md)
+     * [Includes mit untertemplates](gitlab/include/parent-child.md)
+     * [Parent/Child Pipeline](/gitlab/parent-child-pipeline.md)
      * [Vorgefertigte Templates verwenden](gitlab/include/templates.md)
     
   1. gitlab - wann laufen jobs ? 
