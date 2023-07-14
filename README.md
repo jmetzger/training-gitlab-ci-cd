@@ -46,6 +46,9 @@
      * [Docker image automatisiert bauen - docker hub](/gitlab/09a-docker-build-use-docker-hub.md)
      * [Selbst gebauten Container manuell ausführen](/gitlab/docker/docker-image-manuell-ausfuehren.md)
      * [Neues Image in gitlab ci/cd aus gitlab registry verwenden](gitlab/global/default/image.md)
+    
+  1. gitlab ci/cd - container scanning
+      * [Container Scanning](gitlab/cases/container-scanning.md)
 
   1. Tipps&Tricks 
      * [Image/Container debuggen in mit gitlab ci/cd](gitlab/debug/container-kennenlernen.md)
