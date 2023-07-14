@@ -33,6 +33,9 @@
      * [Job nur händisch über Pipelines starten](gitlab/rules/only-web.md)
      * [Auch weiterlaufen, wenn Job fehlschlägt](gitlab/jobs/allow_failure.md)
     
+  1. gitlab - setzen von Variablen
+     * [Variablen für angepasste Builds verwenden und scheduled pipeline](s.md)
+    
   1. Exercises
      * [build with maven and using artifacts](https://github.com/jmetzger/training-gitlab-ci-cd/blob/main/gitlab/11-build-war-with-maven.md)
     
