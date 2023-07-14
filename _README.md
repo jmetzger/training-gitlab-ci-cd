@@ -2,17 +2,75 @@
 
 
 ## Agenda
-  1. gitlab ci/cd
-     * [Overview](#overview)
+  1. gitlab ci/cd (Überblick)
+     * [Architecture](#architecture)
+     * [Overview/Pipelines](#overviewpipelines)
+     * [SaaS vs. On-Premise (Self Hosted)](#saas-vs-on-premise-self-hosted)
+     * [Jenkins mit Gitlab vs. gitlab ci/cd](#jenkins-mit-gitlab-vs-gitlab-cicd)
+
+  1. gitlab ci/cd (Praxis I) 
      * [Using the test - template](#using-the-test---template)
      * [Examples running stages](#examples-running-stages)
      * [Predefined Vars](#predefined-vars)
+     * [Variablen definieren](#variablen-definieren)
+     * [Variablen überschreiben/leeren](#variablen-überschreibenleeren)
      * [Rules](#rules)
      * [Example Defining and using artifacts](#example-defining-and-using-artifacts)
 
+  1. gitlab ci/cd (Praxis II)
+     * [Mehrzeile Kommandos in gitlab ci-cd ausführen](#mehrzeile-kommandos-in-gitlab-ci-cd-ausführen)
+     * [Kommandos auf Zielsystem mit ssh ausführen (auch multiline)](#kommandos-auf-zielsystem-mit-ssh-ausführen-auch-multiline)
+
+  1. gitlab-ci/cd - Workflows
+     * [Workflows + only start by starting pipeline](#workflows-+-only-start-by-starting-pipeline)
+     * [Templates for branch and merge request workflow](#templates-for-branch-and-merge-request-workflow)
+
+  1. gitlab - ci/cd - Pipelines strukturieren / Templates 
+     * [Includes mit untertemplates](#includes-mit-untertemplates)
+     * [Parent/Child Pipeline](#parentchild-pipeline)
+     * [Multiproject Pipeline / Downstream](#multiproject-pipeline--downstream)
+     * [Vorgefertigte Templates verwenden](#vorgefertigte-templates-verwenden)
+     * [Arbeiten mit extend und anchor - Dinge wiederverwenden](#arbeiten-mit-extend-und-anchor---dinge-wiederverwenden)
+    
+  1. gitlab - wann laufen jobs ? 
+     * [Job nur händisch über Pipelines starten](#job-nur-händisch-über-pipelines-starten)
+     * [Auch weiterlaufen, wenn Job fehlschlägt](#auch-weiterlaufen-wenn-job-fehlschlägt)
+    
+  1. gitlab - setzen von Variablen
+     * [Variablen für angepasste Builds verwenden und scheduled pipeline](#variablen-für-angepasste-builds-verwenden-und-scheduled-pipeline)
+    
+  1. Exercises
+     * [build with maven and using artifacts](https://github.com/jmetzger/training-gitlab-ci-cd/blob/main/gitlab/11-build-war-with-maven.md)
+    
   1. gitlab ci/cd - docker
      * [Docker image automatisiert bauen - gitlab registry](#docker-image-automatisiert-bauen---gitlab-registry)
      * [Docker image automatisiert bauen - docker hub](#docker-image-automatisiert-bauen---docker-hub)
+     * [Selbst gebauten Container manuell ausführen](#selbst-gebauten-container-manuell-ausführen)
+     * [Neues Image in gitlab ci/cd aus gitlab registry verwenden](#neues-image-in-gitlab-cicd-aus-gitlab-registry-verwenden)
+    
+  1. gitlab ci/cd - container scanning
+      * [Container Scanning](gitlab/cases/container-scanning.md)
+
+  1. Tipps&Tricks 
+     * [Image/Container debuggen in mit gitlab ci/cd](#imagecontainer-debuggen-in-mit-gitlab-cicd)
+     
+  1. Documentation 
+     * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
+     * [.gitlab-ci.yml Reference](https://docs.gitlab.com/ee/ci/yaml/)
+     * [Referenz: global -> workflow](https://docs.gitlab.com/ee/ci/yaml/#workflow)
+     * [Referenz: global -> default](https://docs.gitlab.com/ee/ci/yaml/#default)
+
+  1. Documentation - Includes
+     * [includes](https://docs.gitlab.com/ee/ci/yaml/includes.html)
+     * [includes -> rules](https://docs.gitlab.com/ee/ci/yaml/includes.html#use-rules-with-include)
+     * [includes -> rules -> variables](https://docs.gitlab.com/ee/ci/yaml/#rulesvariables)
+     * [includes -> templates -> override-configuration](https://docs.gitlab.com/ee/ci/yaml/includes.html#override-included-configuration-values)
+     * [includes -> defaults](https://docs.gitlab.com/ee/ci/yaml/includes.html#use-default-configuration-from-an-included-configuration-file)
+    
+  1. Documentation - Instances Limits
+     * [applicaton limits](https://docs.gitlab.com/ee/administration/instance_limits.html)
+     
+## Backlog 
 
   1. Kubernetes (Refresher) 
      * [Aufbau von Kubernetes](#aufbau-von-kubernetes)
@@ -22,32 +80,78 @@
 
   1. gitlab / Kubernetes (gitops) 
      * [gitlab Kubernetes Agent with gitops - mode](#gitlab-kubernetes-agent-with-gitops---mode)
-
+     
   1. gitlab / Kubernetes (CI/CD - old-school mit kubectl aber agent) 
      * [Vorteile gitlab-agent](#vorteile-gitlab-agent)
-     * [Step 1: Installation gitlab-agent for kubernetes](#step-1:-installation-gitlab-agent-for-kubernetes)
-     * [Step 2: Debugging KUBE_CONTEXT - Community Edition](#step-2:-debugging-kube_context---community-edition)
-     * [Step 3: gitlab-ci.yml setup for deployment and sample manifest](#step-3:-gitlab-ciyml-setup-for-deployment-and-sample-manifest)
+     * [Step 1: Installation gitlab-agent for kubernetes](#step-1-installation-gitlab-agent-for-kubernetes)
+     * [Step 2: Debugging KUBE_CONTEXT - Community Edition](#step-2-debugging-kube_context---community-edition)
+     * [Step 3: gitlab-ci.yml setup for deployment and sample manifest](#step-3-gitlab-ciyml-setup-for-deployment-and-sample-manifest)
      * [Documentation](https://docs.gitlab.com/ee/user/clusters/agent/ci_cd_workflow.html)
 
   1. gitlab / Kubernetes (CI/CD - Auto Devops) 
      * [Was ist Auto DevOps](#was-ist-auto-devops)
      * [Debugging KUBE_CONTEXT - Community Edition](#debugging-kube_context---community-edition)
-     
-  1. Tipps&Tricks 
-     * [Passwörter in Kubernetes verschlüsselt speichern](#passwörter-in-kubernetes-verschlüsselt-speichern)
-     
-  1. Documentation 
-     * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
-     
 
+  1. Tipps&Tricks
+     * [Passwörter in Kubernetes verschlüsselt speichern](#passwörter-in-kubernetes-verschlüsselt-speichern)
   
 
 <div class="page-break"></div>
 
-## gitlab ci/cd
+## gitlab ci/cd (Überblick)
 
-### Overview
+### Architecture
+
+
+### Overview 
+
+![image](https://github.com/jmetzger/training-gitlab-ci-cd/assets/1933318/cbd998b1-cb5e-4978-889c-6213eaac2515)
+
+### Components 
+
+```
+GitLab Workhorse
+================
+-> smart reverse proxy 
+GitLab Workhorse is a smart reverse proxy for GitLab. It handles “large” HTTP requests such as file downloads, file uploads, Git push/pull and Git archive downloads.
+
+GitLab Shell
+============
+GitLab Shell handles Git SSH sessions for GitLab and modifies the list of authorized keys. GitLab Shell is not a Unix shell nor a replacement for Bash or Zsh.
+GitLab supports Git LFS authentication through SSH.
+--> Alternative notwendig statt openssh 
+
+When you access the GitLab server over SSH, GitLab Shell then:
+
+1. Limits you to predefined Git commands (git push, git pull, git fetch).
+2. Calls the GitLab Rails API to check if you are authorized, and what Gitaly server your repository is on.
+3. Copies data back and forth between the SSH client and the Gitaly server.
+ 
+Sidekiq (GitLab Rails -> gitlab rails console) 
+======================
+
+Simple, efficient background processing for Ruby.
+
+Sidekiq uses threads to handle many jobs at the same time in the same process. It does not require Rails but will integrate tightly with Rails to make background processing dead simple.
+
+Puma (Gitlab Rails -> gitlab rails console) 
+===================
+Puma is a fast, multi-threaded, and highly concurrent HTTP 1.1 server for Ruby applications. It runs the core Rails application that provides the user-facing features of GitLab.
+
+Gitaly 
+======
+Dein Repo liegt auf einem bestimmten gitaly - Server 
+Gitaly provides high-level RPC access to Git repositories. It is used by GitLab to read and write Git data.
+
+Gitaly is present in every GitLab installation and coordinates Git repository storage and retrieval. Gitaly can be:
+
+A background service operating on a single instance Linux package installation (all of GitLab on one machine).
+Separated onto its own instance and configured in a full cluster configuration, depending on scaling and availability requirements.
+
+```
+
+
+### Overview/Pipelines
 
 
 ### Pipelines 
@@ -135,6 +239,7 @@ build_a:
 build_b:
   stage: build
   script:
+    - sleep 20
     - echo "This job builds something else slowly."
 
 test_a:
@@ -275,6 +380,29 @@ deploy_b:
 
 
 
+### SaaS vs. On-Premise (Self Hosted)
+
+
+```
+Cons (SaaS):
+
+- Gitlab runner selber einrichten / eigene Gitlab - Runne 
+- Sicherheit der Daten
+- Ich muss die Änderungen für Updates zeitnah durchführen 
+- Gezwungen, die neueste Version zu verwenden 
+
+Pros: 
+
+- Automatische Upgrade auf die neueste Version
+```
+
+### Jenkins mit Gitlab vs. gitlab ci/cd
+
+
+![image](https://github.com/jmetzger/training-gitlab-ci-cd/assets/1933318/938c8c9d-a2d2-4695-9ccd-ecb05188de01)
+
+## gitlab ci/cd (Praxis I) 
+
 ### Using the test - template
 
 
@@ -379,7 +507,7 @@ stages:
   
 show_env:
   stage: build 
-  scripts:
+  script:
     - env 
     - pwd 
 
@@ -391,6 +519,102 @@ show_env:
 ### Reference 
 
   * https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
+
+### Variablen definieren
+
+
+### Möglichkeit 1: TopLevel (Im Project) 
+
+```
+## Settings -> CI/CD -> Variables
+```
+
+### Beispiele:
+
+```
+## gitlab-ci.yml
+variables:
+  TEST_URL: http://schulung.t3isp.de # globalen Scope - in der gesamten Pipeline
+                                     # Überschreibt NICHT -> ... Settings -> CI/CD -> Variables   
+  TEST_VERSION: "1.0" # global 
+  TEST_ENV: Prod # global 
+
+stages:
+  - build 
+  - test
+  
+show_env:
+  stage: build 
+
+  variables:
+    TEST_JOB: lowrunner # variable mit lokalem Scope - nur in Job 
+    TEST_URL: http://www.test.de # Auch das überschreibt NICHT -> ... Settings -> CI/CD -> Variables 
+
+  script:
+  - echo $TEST_URL
+  - echo $TEST_URL > /tmp/urltest.txt
+  - cat /tmp/urltest.txt
+  - echo $TEST_CONTENT # tolle Sache
+  - cat $TEST_CONTENT
+  - echo $TEST_VERSION
+  - echo $TEST_ENV
+  - echo $TEST_JOB
+
+test_env:
+  stage: test 
+
+  script:
+  - echo $TEST_URL
+  - echo $TEST_CONTENT # tolle Sache
+  - cat $TEST_CONTENT
+  - echo $TEST_VERSION
+  - echo $TEST_ENV
+  - echo $TEST_JOB
+
+
+
+
+
+
+
+```
+
+### Reihenfolge, welche Variablen welche überschreien (Ebenene) 
+
+  * https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
+
+### Variablen überschreiben/leeren
+
+
+### gitlab-ci.yml 
+
+```
+default:
+  image: alpine
+
+
+variables:
+  VAR_GLOBAL: "meine globale var"
+
+.base:
+  script: test
+  variables:
+    VAR1: base var 1
+
+job-test3:
+  extends: .base
+  variables: {} ## globale variable sollte danach eigentlich leer sein !! 
+  script:
+   - echo $VAR1
+   - echo "global->"$VAR_GLOBAL
+
+job-test4:
+  extends: .base
+  variables: null
+  script:
+  - echo $VAR1
+
+```
 
 ### Rules
 
@@ -652,6 +876,629 @@ deploy:
 
   * https://docs.gitlab.com/ee/ci/pipelines/job_artifacts.html
 
+## gitlab ci/cd (Praxis II)
+
+### Mehrzeile Kommandos in gitlab ci-cd ausführen
+
+
+### Step 1: 
+
+ * Create new repo
+
+### Step 2: create good.sh next to README.md
+
+  * Create file good.sh in repo root-level 
+
+```
+##!/bin/bash
+
+echo "good things start now"
+ls -la
+date
+```
+
+### Step 3: create gitlab-ci.yml with Pipeline Editor 
+
+```
+stages:
+  - build 
+
+workflow:
+  rules:
+  - if: $CI_PIPELINE_SOURCE == "web"
+
+build-stage:
+  stage: build
+  variables:
+    CMD: |
+      echo hello-you; 
+      ls -la;
+  script: 
+  - echo "execute script from git repo"
+  - bash -s < good.sh
+  - echo -n $CMD
+  - echo "eval the command"
+  - bash -c "$CMD"
+  - |-
+      bash -s << HEREDOC
+        echo hello 
+        ls -la
+      HEREDOC
+  - |
+      tr a-z A-Z << END_TEXT
+        one two three
+        four five six
+      END_TEXT 
+  - |
+      bash -s << HEREDOC
+        echo hello 
+        ls -la
+      HEREDOC
+  - |-
+      tr a-z A-Z << END_TEXT
+        one two three
+        four five six
+      END_TEXT
+  - >
+      echo "First command line
+      is split over two lines."
+
+      echo "Second command line."
+ 
+
+```
+
+### Run Pipeline (need to trigger manually) 
+
+
+
+### Reference 
+
+
+### Reference:
+
+  * https://docs.gitlab.com/ee/ci/yaml/script.html#split-long-commands
+  * https://stackoverflow.com/questions/3790454/how-do-i-break-a-string-in-yaml-over-multiple-lines/21699210#21699210
+
+### Kommandos auf Zielsystem mit ssh ausführen (auch multiline)
+
+
+### create good.sh in root-folder of repo (git) 
+
+```
+##!/bin/bash
+
+echo "good things start now"
+ls -la
+date
+
+```
+
+### Create gitlab-ci.yml 
+
+```
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+
+default:
+  image: maven:latest
+
+stages:          # List of stages for jobs, and their order of execution
+  - deploy 
+  
+deploy-job:
+  
+   stage: deploy   
+   image: ubuntu 
+
+   variables:
+     # GIT_STRATEGY: none
+    CMD: |
+      echo hello-you; 
+      ls -la;
+
+   before_script:
+    - apt -y update
+    - apt install -y openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$TOMCAT_SERVER_SSH_KEY" | tr -d '\r' | ssh-add -
+    - ls -la
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $TOMCAT_SERVER_IP >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - echo $TOMCAT_SERVER_SSH_KEY
+
+   script:
+    #- chmod 600 id_rsa
+    #- scp -i id_rsa -o StrictHostKeyChecking=no target/*.war root@$TOMCAT_SERVER_IP:$TOMCAT_SERVER_WEBDIR 
+     # - scp -o StrictHostKeyChecking=no target/*.war root@$TOMCAT_SERVER_IP:$TOMCAT_SERVER_WEBDIR
+     # - cd $TOMCAT_SERVER_WEBDIR
+     # - ls -la
+     - echo 'V1 - commands in line'
+     - ssh root@$TOMCAT_SERVER_IP -C "ls -la; cd /var/lib/tomcat9/webapps; ls -la;"
+     - echo 'V2 - content of Variable $CMD'
+     - ssh root@$TOMCAT_SERVER_IP -C $CMD
+     - echo 'V3 - script locally - executed remotely'
+     - ssh root@$TOMCAT_SERVER_IP < good.sh
+     - echo 'V4 - script in heredoc'
+     - |
+      ssh root@$TOMCAT_SERVER_IP bash -s << HEREDOC
+        echo "hello V4"
+        ls -la
+      HEREDOC
+     - echo 'V5 - copy script and execute'
+     - scp good.sh root@$TOMCAT_SERVER_IP:/usr/local/bin/better.sh
+     - ssh root@$TOMCAT_SERVER_IP -C "chmod u+x /usr/local/bin/better.sh; better.sh"
+
+```
+
+## gitlab-ci/cd - Workflows
+
+### Workflows + only start by starting pipeline
+
+
+### What for ? 
+  * Configure how pipelines behaves
+
+### Only start pipeline by starting it with pipeline run (manually) 
+
+```
+## only: web geht hier nicht, aber das steht eigentlich für:
+## '$CI_PIPELINE_SOURCE == "web"'
+stages:
+  - build 
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+
+build-stage:
+  stage: build  
+  script: 
+    - echo "hello build" 
+
+```
+
+### More information about possible values for $CI_PIPELINE_SOURCE 
+
+  * https://docs.gitlab.com/ee/ci/jobs/job_control.html#common-if-clauses-for-rules
+
+### Templates for branch and merge request workflow
+
+
+```
+merge_request_event 
+https://docs.gitlab.com/ee/ci/pipelines/merge_request_pipelines.html
+
+merge_request_pipeline 
+Alternatively, you can configure your pipeline to run every time you make changes to the source branch for a merge request. This type of pipeline is called a merge request pipeline.
+
+https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Workflows/MergeRequest-Pipelines.gitlab-ci.yml
+(not default)
+
+branch_pipeline 
+You can configure your pipeline to run every time you commit changes to a branch. This type of pipeline is called a branch pipeline.
+(default)
+
+https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Workflows/Branch-Pipelines.gitlab-ci.yml
+
+```
+
+## gitlab - ci/cd - Pipelines strukturieren / Templates 
+
+### Includes mit untertemplates
+
+
+### Prerequisites 
+
+```
+1x main .gitlab-ci.yml
+
+1x project1/project1.gitlab-ci.yml
+1x project2/project2.gitlab-ci.yml
+```
+
+### Step 1a: gitlab-ci.yml (simple)
+
+```
+stages:          # List of stages for jobs, and their order of execution
+  - build
+
+include:
+   - project1/project1.gitlab-ci.yml
+   - project2/project2.gitlab-ci.yml
+
+
+```
+
+### Step 1b: gitlab-ci.yml (start with pipeline start and variable setting
+
+```
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+
+stages:          # List of stages for jobs, and their order of execution
+  - build
+
+include:
+ 
+include:
+   - local: project1/project1.gitlab-ci.yml
+     rules:
+       - if: $BUILD_PROJECT1 == "true"
+
+   - local: project2/project2.gitlab-ci.yml
+     rules:
+       - if: $BUILD_PROJECT2 == "true"
+
+dummy-build:
+   stage: build
+   script:
+     - echo "dummy build"
+   rules:
+     - if: $BUILD_PROJECT1 != "true" && $BUILD_PROJECT2 != "true"
+
+
+```
+
+
+### Step 2: project1/project1.gitlab-ci.yml 
+
+```
+stages:
+  - build
+
+project1.build-job:
+  stage: build
+  script:
+    - echo "in project1 .. building"
+
+```
+
+### Step 3: project2/project2.gitlab-ci.yml 
+
+```
+stages:
+  - build
+
+project2.build-job:
+  stage: build
+  script:
+    - echo "in project2 .. building"
+```
+
+### Parent/Child Pipeline
+
+
+### gitlab-ci.yml (no subfolders) 
+
+```
+project1:
+  trigger:
+    include: project1/project1.gitlab-ci.yml
+    strategy: depend
+  rules:
+    - changes: [project1/*]
+project2:
+  trigger:
+    include: project2/project2.gitlab-ci.yml
+    strategy: depend
+  rules:
+    - changes: [project2/*]
+```
+
+### gitlab-ci.yml (with subfolders) 
+
+```
+project1:
+  trigger:
+    include: project1/project1.gitlab-ci.yml
+    strategy: depend
+  rules:
+    - changes: [project1/**/*]
+project2:
+  trigger:
+    include: project2/project2.gitlab-ci.yml
+    strategy: depend
+  rules:
+    - changes: [project2/**/*]
+```
+
+### project1/project1.gitlab-ci.yml
+
+```
+stages:
+  - build
+
+project1.build-job:
+  stage: build
+  script:
+    - echo "in project1 .. building"
+    - echo $CI_PIPELINE_SOURCE
+```
+
+### project2/project2.gitlab-ci.yml
+
+```
+stages:
+  - build
+
+project2.build-job:
+  stage: build
+  script:
+    - echo "in project2 .. building"
+    - echo $CI_PIPELINE_SOURCE
+```
+
+### Refs:
+
+  * https://docs.gitlab.com/ee/ci/pipelines/downstream_pipelines.html
+
+### Multiproject Pipeline / Downstream
+
+
+### Practical Example 
+
+#### Trigger - job in .gitlab-ci.yml 
+
+```
+trigger_job:
+  trigger:
+    project: training.tn11/jochentest-multi1 # project/repo sonst geht es nicht (muss komplett angegeben werden) 
+    strategy: depend
+```
+
+#### New repo -> training.tn11/jochentest-multi1 
+
+```
+## This is how my other project looks like 
+workflow:
+    rules:
+      - if: '$CI_PIPELINE_SOURCE == "web"'
+      - if: '$CI_PIPELINE_SOURCE == "pipeline"' # ein projekt gestart innerhalb multiproject - pipeline 
+
+default:
+  image: alpine
+
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
+  script:
+    - echo "Started"
+    - echo "Show us the pipeline source $CI_PIPELINE_SOURCE"
+```
+
+### Version 1: Deploy after all Build triggers are done 
+
+```
+stages:
+  - build
+  - deploy
+
+project1:
+  stage: build
+  trigger:
+    include: project1/project1.gitlab-ci.yml
+    strategy: depend
+ # rules:
+ #   - changes: [project1/**/*]
+project2:
+  stage: build
+  trigger:
+    include: project2/project2.gitlab-ci.yml
+    strategy: depend
+  rules:
+    - changes: [project2/**/*]
+
+trigger_job:
+  stage: build
+  trigger:
+    project: training.tn11/jochentest-multi2 # project/repo sonst geht es nicht (muss komplett angegeben werden) 
+    strategy: depend
+
+deploy_job:
+  stage: deploy
+  image: alpine
+  script: 
+    - echo "i am good to go"
+    - sleep 30
+
+```
+
+
+### Reference 
+
+  * https://docs.gitlab.com/ee/ci/pipelines/downstream_pipelines.html?tab=Multi-project+pipeline
+
+### Vorgefertigte Templates verwenden
+
+
+### Step 1: Browser Template in Pipeline Editor (Top-Bottom) to find the one you want
+
+### Step 2: Include template in your gitlab-ci.yml - config
+
+```
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+
+stages:          # List of stages for jobs, and their order of execution
+  - deploy 
+  - test
+
+include:
+  template: Jobs/Test.gitlab-ci.yml
+
+run-deploy:
+  stage: deploy
+  script:
+    - echo "deploy started"
+
+
+```
+
+### Arbeiten mit extend und anchor - Dinge wiederverwenden
+
+
+### Hinweis:
+
+ * Dinge, die wiederverwendet werden sollen, müssen vorher definiert sein, in der Datei
+ * d.h. .base vor myjob
+ * .default_scripts bzw &default_scripts vor Verwendung als *default_scripts 
+
+### gitlab-ci.yml 
+
+```
+.base:
+  variables:
+    TEST_CASE: "true"
+    VERSION: "1.0"
+
+.default_scripts: &default_scripts
+  - echo "from _default_scripts"
+  - echo "next default step"
+
+myjob:
+  variables:
+    TEST_CASE: 'bad'
+  extends: .base
+  script: 
+    - *default_scripts
+    - echo "in MYJOB"
+    - ls -la
+    - echo $TEST_CASE
+    - echo $VERSION
+
+```
+
+
+## gitlab - wann laufen jobs ? 
+
+### Job nur händisch über Pipelines starten
+
+
+```
+## gitlab-ci.yml
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - test 
+ 
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
+  only:
+    - web
+  image: maven
+  script:
+    - echo "Compiling the code..."
+    - echo "Compile complete."
+
+unit-test-job:   # This job runs in the test stage.
+  stage: test    # It only starts when the job in the build stage completes successfully.
+  only:
+    - web 
+  script:
+    - echo "Running unit tests... This will take about 60 seconds."
+    - sleep 60
+    - echo "Code coverage is 90%"
+
+
+
+```
+
+### Auch weiterlaufen, wenn Job fehlschlägt
+
+
+### Walkthrough 
+
+```
+stages:
+  - build
+  - deploy
+
+default:
+  image: alpine 
+
+build_job1:
+  stage: build 
+  allow_failure: true
+  script:
+    - xls 
+
+build_job2:
+  stage: build
+  script:
+    - ls -la 
+
+deploy_job:
+  stage: deploy
+  script: 
+    - echo "i am good to go"
+    - sleep 30
+
+```
+
+## gitlab - setzen von Variablen
+
+### Variablen für angepasste Builds verwenden und scheduled pipeline
+
+
+### in: gitlab-ci.yml 
+
+```
+workflow: 
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+
+image: alpine
+## correct: eigenes image oder maven 
+
+stages:
+  - build
+
+job-from-scheduler:
+  stage: build
+  
+  rules:
+    - if: $CRON_BUILD_TYPE == "snapshot"
+      variables:                              # Override DEPLOY_VARIABLE defined
+        MVN_BUILD_GOAL: "snapshot"  # at the job level.
+    - if: $CRON_BUILD_TYPE == "release"
+      variables:
+
+        MVN_BUILD_GOAL: "release"                 # Define a new variable.
+  script:
+    - echo "Run script with $DEPLOY_VARIABLE as an argument"
+    - echo "Run another script if $IS_A_FEATURE exists"
+    - echo "mvn $MVN_BUILD_GOAL"
+```
+
+### in Projects -> Build -> Pipeline Schedules 
+
+ * New Schedule -> APP1_snapshot_builder 
+   * Zeit festlegen
+   * Wichtig: Variable setzen:
+     * CRON_BUILD_TYPE : snapshot
+ * New Schedule -> APP1_release_builder 
+   * Zeit festlegen
+   * Wichtig: Variable setzen:
+     * CRON_BUILD_TYPE : release
+    
+![image](https://github.com/jmetzger/training-gitlab-ci-cd/assets/1933318/0c6b3ffb-29fa-45a9-bdda-b1f3154d8e1f)
+
+
+
+## Exercises
+
+### build with maven and using artifacts
+
+  * https://github.com/jmetzger/training-gitlab-ci-cd/blob/main/gitlab/11-build-war-with-maven.md
+
 ## gitlab ci/cd - docker
 
 ### Docker image automatisiert bauen - gitlab registry
@@ -661,7 +1508,11 @@ deploy:
 
 ```
 FROM ubuntu:latest
-RUN touch MYFILE 
+## 
+RUN  apt-get update && \
+     apt-get install -y openssh-client  && \
+     rm -rf /var/lib/apt/lists/*
+COPY good.sh /usr/local/bin/better.sh
 ```
 
 ### .gitlab-ci.yml 
@@ -681,6 +1532,7 @@ build-image:       # This job runs in the build stage, which runs first.
     - echo "registry:"$CI_REGISTRY
     - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
     - docker build -t $CI_REGISTRY_IMAGE .
+    - docker images
     - docker push $CI_REGISTRY_IMAGE
     - echo "BUILD for $CI_REGISTRY_IMAGE done"
 ```
@@ -712,6 +1564,173 @@ build-image:       # This job runs in the build stage, which runs first.
     - docker push $DOCKER_REGISTRY_IMAGE
     - echo "BUILD for $DOCKER_REGISTRY_IMAGE done"
  ```
+
+### Selbst gebauten Container manuell ausführen
+
+
+```
+1. docker auf tomcat server installieren (schnellste Weg) - Ubuntu 
+
+sudo su -
+snap install docker  
+
+
+2. registry - image runterziehen testen (gitlab) 
+
+
+
+## image wird runtergezogen 
+## 1. Es wird eine interaktive Shell gestartet -it 
+## 2. und es wird das Programm bash (Shell) gestartet 
+docker run -it registry.gitlab.com/training.tn11/jochentest1 bash 
+
+-> Mhm, geht nicht, keine Berechtigung 
+
+3. Einloggen in Docker (Versuch 1) 
+
+docker login registry.gitlab.com/training.tn11 -utraining.tn11 -p<Dein Passwort>
+
+-> Mhm, geht nicht, brauchen wir vielleicht ein Token 
+
+4. Access Token anlegen
+
+-> unter Profil -> bearbeiten -> Linkes Menü -> Access Token 
+nur registry lesen 
+
+
+5. Einloggen mit Token an der registry (Token dient als Password) 
+
+docker login registry.gitlab.com/training.tn11 -utraining.tn11 -p<Dein Access Token>
+
+6. Image starten 
+
+docker run -it registry.gitlab.com/training.tn11/jochentest1 bash 
+
+7. ist ssh drin ?
+## hinter dem Prompt eingeben
+```
+
+```
+ssh
+cat /etc/os-release 
+```
+
+### Neues Image in gitlab ci/cd aus gitlab registry verwenden
+
+
+### gitlab-ci.yml 
+
+```
+stages:          # List of stages for jobs, and their order of execution
+  - build
+
+
+build-new:
+  stage: build
+  image: registry.gitlab.com/training.tn11/jochentest1
+  script:
+    - which ssh
+    - echo $PATH
+```
+
+### Ausführen und glücklich sein ! 
+
+
+### Einloggen mit Docker Credentials 
+
+```
+echo -n "username:access-token" | base64 
+
+DOCKER_AUTH_CONFIG
+
+"auths": {
+  "registry.gitlab.com": {
+    "auth": "LSBuIHRyYWluaW5nMTE6Z2xwYXQtTlpILXNTNXhtNEZBeFdTekpBZnkK"
+  }
+}
+
+```
+
+```
+Eintragen von DOCKER_AUTH_CONFIG -> in Settings -> CI/CD -> Variables
+```
+
+### Refs:
+
+  * https://mherman.org/blog/gitlab-ci-private-docker-registry/
+
+## gitlab ci/cd - container scanning
+
+## Tipps&Tricks 
+
+### Image/Container debuggen in mit gitlab ci/cd
+
+
+```
+## in .gitlab-ci.yml
+
+## standardmäßig wird in ruby image verwendet (wenn nichts anderes genannt wird) 
+## image: maven
+
+stages:          # List of stages for jobs, and their order of execution
+  - build
+
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
+  script:
+    - echo "Compiling the code..."
+    - echo "Compile complete."
+    - cat /etc/os-release # Distribution Welche ? anzeigen 
+    - pwd # aktuelle Verzeichnis, in dem ich bin ! # in welchem Verzeichnis bin ich  
+    - ls -la # aktuelles verzeichnis in schöner "Admin" - Form 
+
+```
+
+## Documentation 
+
+### gitlab ci/cd predefined variables
+
+  * https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
+
+### .gitlab-ci.yml Reference
+
+  * https://docs.gitlab.com/ee/ci/yaml/
+
+### Referenz: global -> workflow
+
+  * https://docs.gitlab.com/ee/ci/yaml/#workflow
+
+### Referenz: global -> default
+
+  * https://docs.gitlab.com/ee/ci/yaml/#default
+
+## Documentation - Includes
+
+### includes
+
+  * https://docs.gitlab.com/ee/ci/yaml/includes.html
+
+### includes -> rules
+
+  * https://docs.gitlab.com/ee/ci/yaml/includes.html#use-rules-with-include
+
+### includes -> rules -> variables
+
+  * https://docs.gitlab.com/ee/ci/yaml/#rulesvariables
+
+### includes -> templates -> override-configuration
+
+  * https://docs.gitlab.com/ee/ci/yaml/includes.html#override-included-configuration-values
+
+### includes -> defaults
+
+  * https://docs.gitlab.com/ee/ci/yaml/includes.html#use-default-configuration-from-an-included-configuration-file
+
+## Documentation - Instances Limits
+
+### applicaton limits
+
+  * https://docs.gitlab.com/ee/administration/instance_limits.html
 
 ## Kubernetes (Refresher) 
 
@@ -1308,7 +2327,7 @@ KUBE_CONFIG dummyhoney/spring-autodevops-tln1:gitlab-devops-tn1
 
 ```
 
-## Tipps&Tricks 
+## Tipps&Tricks
 
 ### Passwörter in Kubernetes verschlüsselt speichern
 
@@ -1409,9 +2428,3 @@ ausschliesslich als root arbeite
   * Controller: https://github.com/bitnami-labs/sealed-secrets/releases/
 
 
-
-## Documentation 
-
-### gitlab ci/cd predefined variables
-
-  * https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
