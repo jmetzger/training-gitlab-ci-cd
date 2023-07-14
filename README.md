@@ -26,6 +26,7 @@
   1. gitlab - ci/cd - Pipelines strukturieren / Templates 
      * [Includes mit untertemplates](gitlab/include/parent-child.md)
      * [Parent/Child Pipeline](/gitlab/parent-child-pipeline.md)
+     * [Multiproject Pipeline / Downstream](/training-gitlab-ci-cd/tree/main/gitlab)
      * [Vorgefertigte Templates verwenden](gitlab/include/templates.md)
     
   1. gitlab - wann laufen jobs ? 
