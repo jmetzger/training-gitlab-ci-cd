@@ -13,6 +13,7 @@
      * [Examples running stages](/gitlab/03-example-running-stages.md) 
      * [Predefined Vars](/gitlab/04-predefined-vars.md)
      * [Variablen definieren](/gitlab/variables.md)
+     * [Variablen überschreiben/leeren](gitlab/cases/variablen-ueberschreiben-leeren.md)
      * [Rules](/gitlab/05-rules.md)
      * [Example Defining and using artifacts](/gitlab/07-example-defining-and-using-artifacts.md)
 
