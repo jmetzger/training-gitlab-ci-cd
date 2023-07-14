@@ -18,7 +18,7 @@ trigger_job:
 workflow:
     rules:
       - if: '$CI_PIPELINE_SOURCE == "web"'
-      - if: '$CI_PIPELINE_SOURCE == "pipeline"'
+      - if: '$CI_PIPELINE_SOURCE == "pipeline"' # ein projekt gestart innerhalb multiproject - pipeline 
 
 default:
   image: alpine
