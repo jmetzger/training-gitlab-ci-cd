@@ -28,6 +28,7 @@
      * [Parent/Child Pipeline](/gitlab/parent-child-pipeline.md)
      * [Multiproject Pipeline / Downstream](/gitlab/multiproject-pipeline.md)
      * [Vorgefertigte Templates verwenden](gitlab/include/templates.md)
+     * [Arbeiten mit extend und anchor - Dinge wiederverwenden](gitlab/cases/extend-and-anchor.md)
     
   1. gitlab - wann laufen jobs ? 
      * [Job nur händisch über Pipelines starten](gitlab/rules/only-web.md)
