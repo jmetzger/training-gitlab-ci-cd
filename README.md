@@ -23,6 +23,7 @@
 
   1. gitlab-ci/cd - Workflows
      * [Workflows + only start by starting pipeline](/gitlab/global/workflow.md)
+     * [Templates for branch and merge request workflow](workflow/templates-branch-merge-request-pipeline.md)
 
   1. gitlab - ci/cd - Pipelines strukturieren / Templates 
      * [Includes mit untertemplates](gitlab/include/parent-child.md)
