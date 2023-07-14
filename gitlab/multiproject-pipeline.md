@@ -33,6 +33,44 @@ build-job:       # This job runs in the build stage, which runs first.
     - echo "Show us the pipeline source $CI_PIPELINE_SOURCE"
 ```
 
+## Version 1: Deploy after all Build triggers are done 
+
+```
+stages:
+  - build
+  - deploy
+
+project1:
+  stage: build
+  trigger:
+    include: project1/project1.gitlab-ci.yml
+    strategy: depend
+ # rules:
+ #   - changes: [project1/**/*]
+project2:
+  stage: build
+  trigger:
+    include: project2/project2.gitlab-ci.yml
+    strategy: depend
+  rules:
+    - changes: [project2/**/*]
+
+trigger_job:
+  stage: build
+  trigger:
+    project: training.tn11/jochentest-multi2 # project/repo sonst geht es nicht (muss komplett angegeben werden) 
+    strategy: depend
+
+deploy_job:
+  stage: deploy
+  image: alpine
+  script: 
+    - echo "i am good to go"
+    - sleep 30
+
+```
+
+
 ## Reference 
 
   * https://docs.gitlab.com/ee/ci/pipelines/downstream_pipelines.html?tab=Multi-project+pipeline
