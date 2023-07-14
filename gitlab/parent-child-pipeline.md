@@ -1,6 +1,6 @@
 # Parent Child pipeline 
 
-## gitlab-ci.yml 
+## gitlab-ci.yml (no subfolders) 
 
 ```
 project1:
@@ -15,6 +15,23 @@ project2:
     strategy: depend
   rules:
     - changes: [project2/*]
+```
+
+## gitlab-ci.yml (with subfolders) 
+
+```
+project1:
+  trigger:
+    include: project1/project1.gitlab-ci.yml
+    strategy: depend
+  rules:
+    - changes: [project1/**/*]
+project2:
+  trigger:
+    include: project2/project2.gitlab-ci.yml
+    strategy: depend
+  rules:
+    - changes: [project2/**/*]
 ```
 
 ## project1/project1.gitlab-ci.yml
