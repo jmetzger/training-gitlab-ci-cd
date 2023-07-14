@@ -32,10 +32,7 @@ nur registry lesen
 
 5. Einloggen mit Token an der registry (Token dient als Password) 
 
-glpat-yNygYdudFyEAXbJsDLC_
-
 docker login registry.gitlab.com/training.tn11 -utraining.tn11 -p<Dein Access Token>
-
 
 6. Image starten 
 
