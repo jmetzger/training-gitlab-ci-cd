@@ -26,7 +26,7 @@ echo -n "username:access-token" | base64
 DOCKER_AUTH_CONFIG
 
 "auths": {
-  "registry.gitlab.com/training.tn11": {
+  "registry.gitlab.com": {
     "auth": "LSBuIHRyYWluaW5nMTE6Z2xwYXQtTlpILXNTNXhtNEZBeFdTekpBZnkK"
   }
 }
