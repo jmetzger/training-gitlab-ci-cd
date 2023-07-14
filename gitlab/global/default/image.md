@@ -12,6 +12,7 @@ build-new:
   image: registry.gitlab.com/training.tn11/jochentest1
   script:
     - which ssh
+    - echo $PATH
 ```
 
 ## Ausführen und glücklich sein ! 
