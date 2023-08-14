@@ -29,7 +29,8 @@ show_env:
     TEST_URL: http://www.test.de # Auch das überschreibt NICHT -> ... Settings -> CI/CD -> Variables 
 
   script:
-  - echo $TEST_VAR 
+  - echo $TEST_VAR
+  - echo $TEST_MASK
   - echo $TEST_URL
   - echo $TEST_URL > /tmp/urltest.txt
   - cat /tmp/urltest.txt
