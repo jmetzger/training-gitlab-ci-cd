@@ -2,14 +2,14 @@
 
 ## Agenda 
 
-
+ 1. gitlab ci/cd (Überblick)
+     * [Architecture](/gitlab/architecture.md)
+     * [Overview/Pipelines](/gitlab/01-ci-cd-overview.md)
+     * [SaaS vs. On-Premise (Self Hosted)](gitlab/overview/saas-vs-on-premise.md)
 
 ## Backlog 
 
   1. gitlab ci/cd (Überblick)
-     * [Architecture](/gitlab/architecture.md)
-     * [Overview/Pipelines](/gitlab/01-ci-cd-overview.md)
-     * [SaaS vs. On-Premise (Self Hosted)](gitlab/overview/saas-vs-on-premise.md)
      * [Jenkins mit Gitlab vs. gitlab ci/cd](gitlab/overview/jenkins-gitlab-vs-gitlab-cicd.md) 
 
   1. gitlab ci/cd (Praxis I) 
