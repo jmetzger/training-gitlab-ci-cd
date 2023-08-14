@@ -138,7 +138,8 @@ create_txt:
 ## Passing artifacts between stages (enabled by default) 
 
 ```
-image: ubuntu:20.04
+default:
+  image: ubuntu:20.04
 
 # stages are set to build, test, deploy by default 
 
