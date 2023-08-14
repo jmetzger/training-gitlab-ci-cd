@@ -30,7 +30,7 @@ show_env:
 
   script:
   - echo $TEST_VAR
-  - echo $TEST_MASK
+  - echo $TEST_MASKED
   - echo $TEST_URL
   - echo $TEST_URL > /tmp/urltest.txt
   - cat /tmp/urltest.txt
