@@ -16,6 +16,14 @@
      * [Rules](/gitlab/05-rules.md)
      * [Example Defining and using artifacts](/gitlab/07-example-defining-and-using-artifacts.md)
 
+  1. gitlab ci/cd (Praxis II)
+     * [Mehrzeile Kommandos in gitlab ci-cd ausführen](/gitlab/jobs/script/multiline.md)
+     * [Kommandos auf Zielsystem mit ssh ausführen (auch multiline)](gitlab/jobs/script/ssh-multiline.md)
+
+  1. gitlab-ci/cd - Workflows
+     * [Workflows + only start by starting pipeline](/gitlab/global/workflow.md)
+     * [Templates for branch and merge request workflow](workflow/templates-branch-merge-request-pipeline.md)
+
   1. Documentation 
      * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
      * [.gitlab-ci.yml Reference](https://docs.gitlab.com/ee/ci/yaml/)
@@ -38,13 +46,7 @@
      * [Jenkins mit Gitlab vs. gitlab ci/cd](gitlab/overview/jenkins-gitlab-vs-gitlab-cicd.md) 
 
 
-  1. gitlab ci/cd (Praxis II)
-     * [Mehrzeile Kommandos in gitlab ci-cd ausführen](/gitlab/jobs/script/multiline.md)
-     * [Kommandos auf Zielsystem mit ssh ausführen (auch multiline)](gitlab/jobs/script/ssh-multiline.md)
 
-  1. gitlab-ci/cd - Workflows
-     * [Workflows + only start by starting pipeline](/gitlab/global/workflow.md)
-     * [Templates for branch and merge request workflow](workflow/templates-branch-merge-request-pipeline.md)
 
   1. gitlab - ci/cd - Pipelines strukturieren / Templates 
      * [Includes mit untertemplates](gitlab/include/parent-child.md)
