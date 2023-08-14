@@ -24,11 +24,24 @@
      * [Workflows + only start by starting pipeline](/gitlab/global/workflow.md)
      * [Templates for branch and merge request workflow](workflow/templates-branch-merge-request-pipeline.md)
 
+  1. gitlab - ci/cd - Pipelines strukturieren / Templates 
+     * [Includes mit untertemplates](gitlab/include/parent-child.md)
+     * [Parent/Child Pipeline](/gitlab/parent-child-pipeline.md)
+     * [Multiproject Pipeline / Downstream](/gitlab/multiproject-pipeline.md)
+     * [Vorgefertigte Templates verwenden](gitlab/include/templates.md)
+     * [Arbeiten mit extend und anchor - Dinge wiederverwenden](gitlab/cases/extend-and-anchor.md)
+    
+  1. gitlab - wann laufen jobs ? 
+     * [Job nur händisch über Pipelines starten](gitlab/rules/only-web.md)
+     * [Auch weiterlaufen, wenn Job fehlschlägt](gitlab/jobs/allow_failure.md)
+
   1. Documentation 
      * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
      * [.gitlab-ci.yml Reference](https://docs.gitlab.com/ee/ci/yaml/)
      * [Referenz: global -> workflow](https://docs.gitlab.com/ee/ci/yaml/#workflow)
      * [Referenz: global -> default](https://docs.gitlab.com/ee/ci/yaml/#default)
+    
+  
 
   1. Documentation - Includes
      * [includes](https://docs.gitlab.com/ee/ci/yaml/includes.html)
@@ -48,16 +61,7 @@
 
 
 
-  1. gitlab - ci/cd - Pipelines strukturieren / Templates 
-     * [Includes mit untertemplates](gitlab/include/parent-child.md)
-     * [Parent/Child Pipeline](/gitlab/parent-child-pipeline.md)
-     * [Multiproject Pipeline / Downstream](/gitlab/multiproject-pipeline.md)
-     * [Vorgefertigte Templates verwenden](gitlab/include/templates.md)
-     * [Arbeiten mit extend und anchor - Dinge wiederverwenden](gitlab/cases/extend-and-anchor.md)
-    
-  1. gitlab - wann laufen jobs ? 
-     * [Job nur händisch über Pipelines starten](gitlab/rules/only-web.md)
-     * [Auch weiterlaufen, wenn Job fehlschlägt](gitlab/jobs/allow_failure.md)
+
     
   1. gitlab - setzen von Variablen
      * [Variablen für angepasste Builds verwenden und scheduled pipeline](gitlab/cases/variables-built-change.md)
