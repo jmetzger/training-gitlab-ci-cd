@@ -226,6 +226,7 @@ my_unit_test:
   stage: test
   dependencies: []
   script:
+    - ls -la 
     - echo "no control.txt here"
     - ls -la 
 
