@@ -14,7 +14,8 @@ variables:
   TEST_URL: http://schulung.t3isp.de # globalen Scope - in der gesamten Pipeline
                                      # Überschreibt NICHT -> ... Settings -> CI/CD -> Variables   
   TEST_VERSION: "1.0" # global 
-  TEST_ENV: Prod # global 
+  TEST_ENV: Prod # global
+  TEST_VAR: "overwrite?" 
 
 stages:
   - build 
@@ -28,6 +29,7 @@ show_env:
     TEST_URL: http://www.test.de # Auch das überschreibt NICHT -> ... Settings -> CI/CD -> Variables 
 
   script:
+  - echo $TEST_VAR 
   - echo $TEST_URL
   - echo $TEST_URL > /tmp/urltest.txt
   - cat /tmp/urltest.txt
