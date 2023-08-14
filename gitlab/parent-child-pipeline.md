@@ -34,6 +34,33 @@ project2:
     - changes: [project2/**/*]
 ```
 
+## gitlab-ci.yml (with subfolders ....) 
+
+  * Not able to be started on run pipeline (manually)
+  * But, when it is triggered on changes
+
+```
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      when: never
+    - when: always
+
+project1:
+  trigger:
+    include: project1/project1.gitlab-ci.yml
+    strategy: depend
+  rules:
+    - changes: [project1/**/*]
+project2:
+  trigger:
+    include: project2/project2.gitlab-ci.yml
+    strategy: depend
+  rules:
+    - changes: [project2/**/*]
+```
+
+
 ## project1/project1.gitlab-ci.yml
 
 ```
