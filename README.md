@@ -16,8 +16,23 @@
      * [Rules](/gitlab/05-rules.md)
      * [Example Defining and using artifacts](/gitlab/07-example-defining-and-using-artifacts.md)
 
+  1. Documentation 
+     * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
+     * [.gitlab-ci.yml Reference](https://docs.gitlab.com/ee/ci/yaml/)
+     * [Referenz: global -> workflow](https://docs.gitlab.com/ee/ci/yaml/#workflow)
+     * [Referenz: global -> default](https://docs.gitlab.com/ee/ci/yaml/#default)
 
-## Backlog 
+  1. Documentation - Includes
+     * [includes](https://docs.gitlab.com/ee/ci/yaml/includes.html)
+     * [includes -> rules](https://docs.gitlab.com/ee/ci/yaml/includes.html#use-rules-with-include)
+     * [includes -> rules -> variables](https://docs.gitlab.com/ee/ci/yaml/#rulesvariables)
+     * [includes -> templates -> override-configuration](https://docs.gitlab.com/ee/ci/yaml/includes.html#override-included-configuration-values)
+     * [includes -> defaults](https://docs.gitlab.com/ee/ci/yaml/includes.html#use-default-configuration-from-an-included-configuration-file)
+    
+   1. Documentation - Instances Limits
+     * [applicaton limits](https://docs.gitlab.com/ee/administration/instance_limits.html)
+     
+## Backlog I 
 
   1. gitlab ci/cd (Überblick)
      * [Jenkins mit Gitlab vs. gitlab ci/cd](gitlab/overview/jenkins-gitlab-vs-gitlab-cicd.md) 
@@ -60,23 +75,8 @@
   1. Tipps&Tricks 
      * [Image/Container debuggen in mit gitlab ci/cd](gitlab/debug/container-kennenlernen.md)
      
-  1. Documentation 
-     * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
-     * [.gitlab-ci.yml Reference](https://docs.gitlab.com/ee/ci/yaml/)
-     * [Referenz: global -> workflow](https://docs.gitlab.com/ee/ci/yaml/#workflow)
-     * [Referenz: global -> default](https://docs.gitlab.com/ee/ci/yaml/#default)
 
-  1. Documentation - Includes
-     * [includes](https://docs.gitlab.com/ee/ci/yaml/includes.html)
-     * [includes -> rules](https://docs.gitlab.com/ee/ci/yaml/includes.html#use-rules-with-include)
-     * [includes -> rules -> variables](https://docs.gitlab.com/ee/ci/yaml/#rulesvariables)
-     * [includes -> templates -> override-configuration](https://docs.gitlab.com/ee/ci/yaml/includes.html#override-included-configuration-values)
-     * [includes -> defaults](https://docs.gitlab.com/ee/ci/yaml/includes.html#use-default-configuration-from-an-included-configuration-file)
-    
-  1. Documentation - Instances Limits
-     * [applicaton limits](https://docs.gitlab.com/ee/administration/instance_limits.html)
-     
-## Backlog 
+## Backlog II
 
   1. Kubernetes (Refresher) 
      * [Aufbau von Kubernetes](kubernetes/architecture.md) 
