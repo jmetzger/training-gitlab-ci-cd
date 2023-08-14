@@ -53,6 +53,11 @@ deploy-job:
      # - cd $TOMCAT_SERVER_WEBDIR
      # - ls -la
      - echo 'V1 - commands in line'
+     ############### ! Important 
+     # For ssh to exit on error, start your commands with first command set -e 
+     # - This will exit the executed on error with return - code > 0
+     # - AND will throw an error from ssh and in pipeline  
+     ###############
      - ssh root@$TOMCAT_SERVER_IP -C "ls -la; cd /var/lib/tomcat9/webapps; ls -la;"
      - echo 'V2 - content of Variable $CMD'
      - ssh root@$TOMCAT_SERVER_IP -C $CMD
