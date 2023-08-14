@@ -58,7 +58,7 @@ deploy-job:
      # - This will exit the executed on error with return - code > 0
      # - AND will throw an error from ssh and in pipeline  
      ###############
-     - ssh root@$TOMCAT_SERVER_IP -C "ls -la; cd /var/lib/tomcat9/webapps; ls -la;"
+     - ssh root@$TOMCAT_SERVER_IP -C "set -e; ls -la; cd /var/lib/tomcat9/webapps; ls -la;"
      - echo 'V2 - content of Variable $CMD'
      - ssh root@$TOMCAT_SERVER_IP -C $CMD
      - echo 'V3 - script locally - executed remotely'
