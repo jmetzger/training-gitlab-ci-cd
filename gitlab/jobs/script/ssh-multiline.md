@@ -19,8 +19,7 @@ workflow:
     - if: '$CI_PIPELINE_SOURCE == "web"'
 
 default:
-  image: maven:latest
-
+  image: alpine
 stages:          # List of stages for jobs, and their order of execution
   - deploy 
   
