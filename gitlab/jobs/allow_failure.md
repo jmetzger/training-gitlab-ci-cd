@@ -19,7 +19,13 @@ build_job1:
 build_job2:
   stage: build
   script:
-    - ls -la 
+    - ls -la
+    - sleep 120
+
+build_job3:
+   stage: build
+   script:
+     - echo "ich bin job3" 
 
 deploy_job:
   stage: deploy
