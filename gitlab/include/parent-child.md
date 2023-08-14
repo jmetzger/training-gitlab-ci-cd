@@ -31,8 +31,6 @@ workflow:
 
 stages:          # List of stages for jobs, and their order of execution
   - build
-
-include:
  
 include:
    - local: project1/project1.gitlab-ci.yml
