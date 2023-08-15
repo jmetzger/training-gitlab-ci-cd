@@ -36,7 +36,7 @@ deploy-job:
    script:
      - echo 'Deploying wordpres'
      - cd cms
-     - export DOCKER_HOST=“ssh://root@$TOMCAT_SERVER_IP”
+     - export DOCKER_HOST="ssh://root@$TOMCAT_SERVER_IP"
      - docker-compose up -d
 ```
 
