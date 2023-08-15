@@ -1,5 +1,12 @@
 # Use gitlab - registry
 
+## good.sh 
+
+```
+#!/bin/bash
+date
+```
+
 ## Dockerfile - RootLevel 
 
 ```
