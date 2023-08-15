@@ -76,11 +76,13 @@ deploy-job:
 
    script:
      - echo 'Deploying wordpress'
-     - cd cms
-     - export DOCKER_HOST="ssh://root@$TOMCAT_SERVER_IP"
-     - docker info
-     - docker container ls
-     - docker compose up -d
+
+     - |
+       ssh root@$TOMCAT_SERVER_IP bash -s << HEREDOC
+        cd
+        mkdir -p cms 
+        cd cms 
+       HEREDOC 
 
 ```
 
