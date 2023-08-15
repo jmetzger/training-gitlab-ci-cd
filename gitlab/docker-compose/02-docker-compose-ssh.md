@@ -20,7 +20,8 @@ deploy-job:
   
    before_script:
     - apt -y update
-    - apt install -y openssh-client 
+    - apt install -y openssh-client snap
+    - snap install docker
     - eval $(ssh-agent -s)
     - echo "$TOMCAT_SERVER_SSH_KEY" | tr -d '\r' | ssh-add -
     - ls -la
@@ -33,7 +34,7 @@ deploy-job:
     - chmod 600 ~/.ssh/id_rsa 
 
    script:
-     - echo 'Deploying wordpres"
+     - echo 'Deploying wordpres'
      - cd cms
      - export DOCKER_HOST=“ssh://root@$TOMCAT_SERVER_IP”
      - docker-compose up -d
