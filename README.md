@@ -41,6 +41,11 @@
 
   1. gitlab ci/cd docker
      * [Docker image automatisiert bauen - gitlab registry](/gitlab/09-use-gitlab-registry.md)
+    
+  1. gitlab ci/cd docker compose
+     * [Docker compose local testen](01-docker-compose-local-testen.md)
+     * [Docker compose über ssh](02-docker-compose-ssh.md)
+     * [Docker compose classic über scp](03-docker-compose-rollout-classic.md)
 
   1. Documentation 
      * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
