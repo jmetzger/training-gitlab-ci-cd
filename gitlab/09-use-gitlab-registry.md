@@ -18,7 +18,7 @@ RUN  apt-get update && \
 COPY good.sh /usr/local/bin/better.sh
 ```
 
-## .gitlab-ci.yml 
+## Variante 1:  .gitlab-ci.yml (Version with docker-dind (docker-in-docker)
 
 ```
 stages:          # List of stages for jobs, and their order of execution
@@ -38,4 +38,21 @@ build-image:       # This job runs in the build stage, which runs first.
     - docker images
     - docker push $CI_REGISTRY_IMAGE
     - echo "BUILD for $CI_REGISTRY_IMAGE done"
+```
+
+## Variante 2: kaniko (rootless from google) 
+
+```
+build:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:v1.9.0-debug
+    entrypoint: [""]
+  script:
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}"
+  rules:
+    - if: $CI_COMMIT_TAG
 ```
