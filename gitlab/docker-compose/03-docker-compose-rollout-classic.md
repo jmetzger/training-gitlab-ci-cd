@@ -48,6 +48,8 @@ volumes:
 ```
 
 
+
+
 workflow:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "web"'
@@ -81,8 +83,9 @@ deploy-job:
        ssh root@$TOMCAT_SERVER_IP bash -s << HEREDOC
         cd
         mkdir -p cms 
-        cd cms 
        HEREDOC 
+     - scp cms/docker-compose.yaml root@$TOMCAT_SERVER_IP:~/cms/
+     - ssh root@$TOMCAT_SERVER_IP -C "cd; cd cms; docker compose up -d"
 
 ```
 
