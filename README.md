@@ -39,6 +39,9 @@
      * [Job nur händisch über Pipelines starten](gitlab/rules/only-web.md)
      * [Auch weiterlaufen, wenn Job fehlschlägt](gitlab/jobs/allow_failure.md)
 
+  1. gitlab ci/cd docker
+     *  * [Docker image automatisiert bauen - gitlab registry](/gitlab/09-use-gitlab-registry.md)
+
   1. Documentation 
      * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
      * [.gitlab-ci.yml Reference](https://docs.gitlab.com/ee/ci/yaml/)
@@ -59,11 +62,6 @@
 
   1. gitlab ci/cd (Überblick)
      * [Jenkins mit Gitlab vs. gitlab ci/cd](gitlab/overview/jenkins-gitlab-vs-gitlab-cicd.md) 
-
-
-
-
-
     
   1. gitlab - setzen von Variablen
      * [Variablen für angepasste Builds verwenden und scheduled pipeline](gitlab/cases/variables-built-change.md)
@@ -72,7 +70,6 @@
      * [build with maven and using artifacts](https://github.com/jmetzger/training-gitlab-ci-cd/blob/main/gitlab/11-build-war-with-maven.md)
     
   1. gitlab ci/cd - docker
-     * [Docker image automatisiert bauen - gitlab registry](/gitlab/09-use-gitlab-registry.md)
      * [Docker image automatisiert bauen - docker hub](/gitlab/09a-docker-build-use-docker-hub.md)
      * [Selbst gebauten Container manuell ausführen](/gitlab/docker/docker-image-manuell-ausfuehren.md)
      * [Neues Image in gitlab ci/cd aus gitlab registry verwenden](gitlab/global/default/image.md)
