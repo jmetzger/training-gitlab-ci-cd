@@ -40,7 +40,7 @@
      * [Auch weiterlaufen, wenn Job fehlschlägt](gitlab/jobs/allow_failure.md)
 
   1. gitlab ci/cd docker
-     *  * [Docker image automatisiert bauen - gitlab registry](/gitlab/09-use-gitlab-registry.md)
+     * [Docker image automatisiert bauen - gitlab registry](/gitlab/09-use-gitlab-registry.md)
 
   1. Documentation 
      * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
