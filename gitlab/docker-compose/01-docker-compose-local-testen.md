@@ -5,6 +5,8 @@
 ```
 # public/private key muss eingerichtet sein
 ssh root@<ziel-ip>
+# Eventually install docker (Ubuntu)
+snap install docker 
 ```
 
 ```
