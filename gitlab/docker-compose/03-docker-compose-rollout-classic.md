@@ -89,6 +89,3 @@ deploy-job:
 
 ```
 
-```
-docker compose up -d
-```
