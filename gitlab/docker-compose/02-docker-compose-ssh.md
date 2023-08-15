@@ -2,57 +2,45 @@
 
 ## Evolutions-Phase 2: Anwenden eines Docker Compose files über ssh 
 
-```
-# public/private key muss eingerichtet sein
-ssh root@<ziel-ip>
-# Eventually install docker (Ubuntu)
-snap install docker 
-```
+### Schritt 1: gitlab-ci.yaml 
 
 ```
-mkdir cms
-cd cms
-nano docker-compose.yaml
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+
+default:
+  image: alpine
+stages:          # List of stages for jobs, and their order of execution
+  - deploy 
+
+deploy-job:
+   stage: deploy   
+   image: ubuntu 
+  
+   before_script:
+    - apt -y update
+    - apt install -y openssh-client 
+    - eval $(ssh-agent -s)
+    - echo "$TOMCAT_SERVER_SSH_KEY" | tr -d '\r' | ssh-add -
+    - ls -la
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $TOMCAT_SERVER_IP >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - echo $TOMCAT_SERVER_SSH_KEY
+    - cat $TOMCAT_SERVER_SSH_KEY >  ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa 
+
+   script:
+     - echo 'Deploying wordpres"
+     - cd cms
+     - export DOCKER_HOST=“ssh://root@$TOMCAT_SERVER_IP”
+     - docker-compose up -d
 ```
 
-```
-# docker-compose.yaml
-version: "3.8"
 
-services:
-  database:
-    image: mysql:5.7
-    volumes:
-      - database_data:/var/lib/mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: mypassword
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
 
-  wordpress:
-    image: wordpress:latest
-    depends_on:
-      - database
-    ports:
-      - 8080:80
-    restart: always
-    environment:
-      WORDPRESS_DB_HOST: database:3306
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
-    volumes:
-      - wordpress_plugins:/var/www/html/wp-content/plugins
-      - wordpress_themes:/var/www/html/wp-content/themes
-      - wordpress_uploads:/var/www/html/wp-content/uploads
-
-volumes:
-  database_data:
-  wordpress_plugins:
-  wordpress_themes:
-  wordpress_uploads:
-```
 
 ```
 docker compose up -d
