@@ -7,11 +7,11 @@
 ```
 trigger_job:
   trigger:
-    project: training.tn11/jochentest-multi1 # project/repo sonst geht es nicht (muss komplett angegeben werden) 
+    project: training.tn1/jochentest-multi1 # project/repo sonst geht es nicht (muss komplett angegeben werden) 
     strategy: depend
 ```
 
-### New repo -> training.tn11/jochentest-multi1 
+### New repo -> training.tn1/jochentest-multi1 
 
 ```
 # This is how my other project looks like 
