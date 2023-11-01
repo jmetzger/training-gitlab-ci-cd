@@ -175,7 +175,7 @@ deploy:
 
 ```
 
-## Passing artifacts between stages (enabled by default) - only writing it in stage: build 
+## Passing 2: artifacts between stages (enabled by default) - only writing it in stage: build 
 
 ```
 # only change in stage: build 
@@ -207,7 +207,7 @@ deploy:
 
 ```
 
-## Passing artifacts (+ommitting test - stage) 
+## Passing 3: artifacts (+ommitting test - stage) 
 
   * You can decide in which state you need the artifacts 
 
