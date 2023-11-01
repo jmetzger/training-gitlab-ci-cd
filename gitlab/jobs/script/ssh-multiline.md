@@ -50,7 +50,7 @@ deploy-job:
      # - This will exit the executed on error with return - code > 0
      # - AND will throw an error from ssh and in pipeline  
      ###############
-     - ssh root@$SERVER_IP -C "set -e; ls -la; cd $SERVER_IP; ls -la;"
+     - ssh root@$SERVER_IP -C "set -e; ls -la; cd $SERVER_WEBDIR; ls -la;"
      - echo 'V2 - content of Variable $CMD'
      - ssh root@$SERVER_IP -C $CMD
      - echo 'V3 - script locally - executed remotely'
