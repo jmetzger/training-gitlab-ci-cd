@@ -47,18 +47,13 @@ deploy-job:
     - echo $SERVER_SSH_KEY
 
    script:
-    #- chmod 600 id_rsa
-    #- scp -i id_rsa -o StrictHostKeyChecking=no target/*.war root@$SERVER_IP:$SERVER_WEBDIR 
-     # - scp -o StrictHostKeyChecking=no target/*.war root@$SERVER_IP:$SERVER_WEBDIR
-     # - cd $SERVER_WEBDIR
-     # - ls -la
      - echo 'V1 - commands in line'
      ############### ! Important 
      # For ssh to exit on error, start your commands with first command set -e 
      # - This will exit the executed on error with return - code > 0
      # - AND will throw an error from ssh and in pipeline  
      ###############
-     - ssh root@$SERVER_IP -C "set -e; ls -la; cd /var/lib/tomcat9/webapps; ls -la;"
+     - ssh root@$SERVER_IP -C "set -e; ls -la; cd $SERVER_IP; ls -la;"
      - echo 'V2 - content of Variable $CMD'
      - ssh root@$SERVER_IP -C $CMD
      - echo 'V3 - script locally - executed remotely'
