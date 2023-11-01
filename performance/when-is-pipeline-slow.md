@@ -20,4 +20,36 @@
 
 ## Job abspecken / zu langsam 
 
-  * Muss ich wirklich alles in diesem Job so machen oder kann ich Sachen weglassen (weil redundant, nicht notwendig) 
+  * Muss ich wirklich alles in diesem Job so machen oder kann ich Sachen weglassen (weil redundant, nicht notwendig)
+
+## Brauche ich artifakte in jedem Job, ansonsten deaktivieren
+
+```
+# only change in stage: build 
+image: ubuntu:20.04
+
+# stages are set to build, test, deploy by default 
+
+build:
+  stage: build
+  script:
+    - echo "in building..." >> ./control.txt
+  artifacts:
+    paths:
+    - control.txt
+    expire_in: 1 week
+
+my_unit_test:
+  stage: test
+  dependencies: []
+  script:
+    - ls -la 
+    - echo "no control.txt here"
+    - ls -la 
+
+deploy:
+  stage: deploy
+  script:
+    - ls
+    - cat control.txt
+```
