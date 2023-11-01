@@ -47,6 +47,9 @@
      * [Docker compose über ssh](02-docker-compose-ssh.md)
      * [Docker compose classic über scp](03-docker-compose-rollout-classic.md)
 
+  1. Performance
+     * [Wann ist eine Pipeline langsam ?](performance/when-is-pipeline-slow.md)
+
   1. Documentation 
      * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
      * [.gitlab-ci.yml Reference](https://docs.gitlab.com/ee/ci/yaml/)
