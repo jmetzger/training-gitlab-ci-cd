@@ -7,7 +7,7 @@ Jobs can output an archive of files and directories. This output is known as a j
 You can download job artifacts by using the GitLab UI or the API.
 ```
 
-## Example: Creating an artifact 
+## Example 1: Creating an artifact 
 
 ```
 # .gitlab-ci.yml 
@@ -25,7 +25,7 @@ create_txt:
 
 ```
 
-## Example creating artifacts with wildcards and different name 
+## Example 2: creating artifacts with wildcards and different name 
 
 ```
 
@@ -46,7 +46,7 @@ create_txt:
 
 ```
 
-## Artifakte und Name aus Variable vergeben 
+## Example 3: Artifakte und Name aus Variable vergeben 
 
   * If your branch-name contains forward slashes
     * (for example feature/my-feature) 
@@ -72,7 +72,7 @@ create_txt:
 
 ```
 
-## Alle files in einem Verzeichnis recursive 
+## Example 4: Alle files in einem Verzeichnis recursive 
 
 ```
 # .gitlab-ci.yml 
@@ -93,7 +93,7 @@ create_txt:
 
 ```
 
-## Artifakte und Bedingungen 
+## Example 5: Artifakte und Bedingungen 
 
 ```
 # nur artifact erstellen, wenn ein commit-tag gesetzt ist. 
