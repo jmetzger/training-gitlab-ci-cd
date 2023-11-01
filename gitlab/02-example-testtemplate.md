@@ -21,10 +21,10 @@
 
 # Schritt 2: Ein Standard-Template als Ausgangsbasis holen 
 # Get default ci-Template 
-CI-CD -> Pipelines -> Try Test-Template 
+Build -> Pipeline - Editor
 
-# Testtemplate wird in file gitlab-ci.yaml angelegt. 
-# Es erscheint unter: CI-CD -> Editor 
+# Es erscheint der Editor mit einem Test-Template  
+
 
 1x speichern und committen.
 
