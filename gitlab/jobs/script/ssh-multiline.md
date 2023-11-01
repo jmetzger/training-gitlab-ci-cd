@@ -18,8 +18,6 @@ workflow:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "web"'
 
-default:
-  image: alpine
 stages:          # List of stages for jobs, and their order of execution
   - deploy 
   
@@ -29,7 +27,6 @@ deploy-job:
    image: ubuntu 
 
    variables:
-     # GIT_STRATEGY: none
     CMD: |
       echo hello-you; 
       ls -la;
@@ -44,7 +41,7 @@ deploy-job:
     - chmod 700 ~/.ssh
     - ssh-keyscan $SERVER_IP >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
-    - echo $SERVER_SSH_KEY
+#- echo $SERVER_SSH_KEY
 
    script:
      - echo 'V1 - commands in line'
