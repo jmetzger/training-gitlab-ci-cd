@@ -1,5 +1,29 @@
 # SSH connection to server executing commands (Including multiline) 
 
+## Preparation on Server 
+
+### Step 1: Create public/private key 
+
+```
+# on destinationn server
+ssh-keygen
+cd .ssh
+ls -la
+```
+
+### Step 2: Add id_rsa.pub /Public key to authorized_keys 
+
+```
+cat id_rsa.pub >> authorized_keys
+```
+
+### Step 3: Add id_rsa (private key) to GITLAB ci/cd -> Settings -> CI/CD as new Variable 
+```
+cat id_rsa
+# copy content and add as content to new variable SERVER_SSH_KEY
+# DO not set variable as protected 
+```
+
 ## create good.sh in root-folder of repo (git) 
 
 ```
