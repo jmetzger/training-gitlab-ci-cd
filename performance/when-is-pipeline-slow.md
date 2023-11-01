@@ -18,3 +18,6 @@
   * sehr lange Laufzeiten, weil einzelne Stages sehr lange brauchen (standardverhalten: jeder Stage muss komplett fertig sein, damit der nächste Stage starten kann)
   * Lösung: Acyclice Pipelines: z.B. build_a -> test_a -> deploy_a kann parallel laufen zu build_b -> test_b -> deploy_b
 
+## Job abspecken / zu langsam 
+
+  * Muss ich wirklich alles in diesem Job so machen oder kann ich Sachen weglassen (weil redundant, nicht notwendig) 
