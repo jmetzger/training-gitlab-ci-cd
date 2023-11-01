@@ -135,13 +135,17 @@ create_txt:
 
 
 
-## Passing artifacts between stages (enabled by default) 
+## Passing 1: Passing artifacts between stages (enabled by default) 
 
 ```
 default:
-  image: ubuntu:20.04
+  image: ubuntu:22.04
 
 # stages are set to build, test, deploy by default 
+stages:
+  - build
+  - test
+  - deploy 
 
 build:
   stage: build
