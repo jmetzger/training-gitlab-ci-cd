@@ -3,6 +3,7 @@
 ## Repo ist sehr gross
 
   * was kann ich tun: depth niedriger setzen, statt 20
+  * Brauche ich das Repo in dem Job ?-> ansonsten GIT_STRATEGY: none 
 
 ## Image ist zu gross 
 
