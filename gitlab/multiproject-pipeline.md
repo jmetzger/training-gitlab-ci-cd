@@ -14,6 +14,10 @@ trigger_job:
 ### New repo -> training.tn1/jochentest-multi1 
 
 ```
+.gitlab-ci.yml
+```
+
+```
 # This is how my other project looks like 
 workflow:
     rules:
