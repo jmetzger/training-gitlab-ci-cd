@@ -1,6 +1,6 @@
 # Multiproject pipeline 
 
-## Practical Example 
+## Practical Example (Variant 1)
 
 ### Trigger - job in .gitlab-ci.yml 
 
@@ -37,7 +37,7 @@ build-job:       # This job runs in the build stage, which runs first.
     - echo "Show us the pipeline source $CI_PIPELINE_SOURCE"
 ```
 
-## Version 1: Deploy after all Build triggers are done 
+## Practical Example (Variant 2): Deploy after all Build triggers are done 
 
 ```
 stages:
