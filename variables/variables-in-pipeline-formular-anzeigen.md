@@ -33,3 +33,8 @@ variables:
        - 'true'
 
 ```
+
+### So sieht es aus:
+
+![image](https://github.com/jmetzger/training-gitlab-ci-cd/assets/1933318/6d894cc2-e87e-4896-8bae-ee3e199d13d2)
+
