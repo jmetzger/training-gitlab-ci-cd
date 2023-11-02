@@ -1,6 +1,6 @@
 # Parent Child pipeline 
 
-## gitlab-ci.yml (no subfolders) 
+## Variante 1: gitlab-ci.yml (no subfolders) 
 
 ```
 project1:
@@ -17,7 +17,7 @@ project2:
     - changes: [project2/*]
 ```
 
-## gitlab-ci.yml (with subfolders) 
+## Variante 2: gitlab-ci.yml (with subfolders) 
 
 ```
 project1:
@@ -34,7 +34,7 @@ project2:
     - changes: [project2/**/*]
 ```
 
-## gitlab-ci.yml (with subfolders ....) 
+## Variante 3: gitlab-ci.yml (with subfolders ....) 
 
   * Not able to be started on run pipeline (manually)
   * But, when it is triggered on changes
