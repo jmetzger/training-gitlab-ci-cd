@@ -46,9 +46,9 @@
      * [Docker image automatisiert bauen - gitlab registry](/gitlab/09-use-gitlab-registry.md)
     
   1. gitlab ci/cd docker compose
-     * [Docker compose local testen](01-docker-compose-local-testen.md)
-     * [Docker compose über ssh](02-docker-compose-ssh.md)
-     * [Docker compose classic über scp](03-docker-compose-rollout-classic.md)
+     * [Docker compose local testen](gitlab/docker-compose/01-docker-compose-local-testen.md)
+     * [Docker compose über ssh](gitlab/docker-compose/02-docker-compose-ssh.md)
+     * [Docker compose classic über scp](gitlab/docker-compose/03-docker-compose-rollout-classic.md)
 
   1. Performance
      * [Wann ist eine Pipeline langsam ?](performance/when-is-pipeline-slow.md)
