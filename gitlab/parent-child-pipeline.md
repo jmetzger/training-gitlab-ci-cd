@@ -87,6 +87,36 @@ project2.build-job:
     - echo $CI_PIPELINE_SOURCE
 ```
 
+## Alternative mit anderen stages in child 
+
+```
+stages:
+  - project1-build
+  - project1-test
+  - project1-deploy 
+
+
+project1.build-job:
+  stage: project1-build
+  script:
+    - echo "in project1 .. building"
+    - echo $CI_PIPELINE_SOURCE
+
+project1.test-job:
+  stage: project1-test
+  script:
+    - echo "in project1 .. test"
+    - echo $CI_PIPELINE_SOURCE
+
+project1.deploy-job:
+  stage: project1-deploy
+  script:
+    - echo "in project1 .. deploy"
+    - echo $CI_PIPELINE_SOURCE
+```
+
+
+
 ## Refs:
 
   * https://docs.gitlab.com/ee/ci/pipelines/downstream_pipelines.html
