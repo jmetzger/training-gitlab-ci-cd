@@ -43,42 +43,40 @@ nano docker-compose.yaml
 ```
 
 ```
-# docker-compose.yaml
-version: "3.8"
-
 services:
-  database:
-    image: mysql:5.7
+  db:
+    # We use a mariadb image which supports both amd64 & arm64 architecture
+    image: mariadb:10.6.4-focal
+    # If you really want to use MySQL, uncomment the following line
+    #image: mysql:8.0.27
+    command: '--default-authentication-plugin=mysql_native_password'
     volumes:
-      - database_data:/var/lib/mysql
+      - db_data:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: mypassword
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
-
+      - MYSQL_ROOT_PASSWORD=somewordpress
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=wordpress
+    expose:
+      - 3306
+      - 33060
   wordpress:
     image: wordpress:latest
-    depends_on:
-      - database
+    volumes:
+      - wp_data:/var/www/html
     ports:
-      - 8080:80
+      - 80:80
     restart: always
     environment:
-      WORDPRESS_DB_HOST: database:3306
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
-    volumes:
-      - wordpress_plugins:/var/www/html/wp-content/plugins
-      - wordpress_themes:/var/www/html/wp-content/themes
-      - wordpress_uploads:/var/www/html/wp-content/uploads
-
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress
+      - WORDPRESS_DB_NAME=wordpress
 volumes:
-  database_data:
-  wordpress_plugins:
-  wordpress_themes:
-  wordpress_uploads:
+  db_data:
+  wp_data:
+
 ```
 
 ```
