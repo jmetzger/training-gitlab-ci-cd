@@ -52,6 +52,9 @@
 
   1. Performance
      * [Wann ist eine Pipeline langsam ?](performance/when-is-pipeline-slow.md)
+    
+  1. Monitoring gitlab
+     * [Monitoring gitlab good or bad ?](monitoring/overview.md)
 
   1. Documentation 
      * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
