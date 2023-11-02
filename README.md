@@ -32,7 +32,7 @@
      * [Variablen in Pipelines Web-Dialog anzeigen](variables/variables-in-pipeline-formular-anzeigen.md)
 
   1. gitlab - ci/cd - Pipelines strukturieren / Templates 
-     * [Includes mit untertemplates](gitlab/include/parent-child.md)
+     * [Includes mit untertemplates](gitlab/include/pipeline-with-includes.md)
      * [Parent/Child Pipeline](/gitlab/parent-child-pipeline.md)
      * [Multiproject Pipeline / Downstream](/gitlab/multiproject-pipeline.md)
      * [Vorgefertigte Templates verwenden](gitlab/include/templates.md)
