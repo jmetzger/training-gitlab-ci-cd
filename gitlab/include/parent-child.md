@@ -1,4 +1,4 @@
-# Create parent-child project
+# Create pipeline with includes 
 
 ## Prerequisites 
 
