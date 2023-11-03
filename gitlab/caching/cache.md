@@ -81,6 +81,56 @@ test_db:
     - node ./specs/start.js ./specs/db-postgres.spec.js
 ```
 
+### Iteration 2: Modify .gitlab-ci.yaml 
+
+  * package-lock.json bauen (npm install) und als artifact zur Verfügung stellen 
+
+```
+image: node:16.3.0 # (1)
+
+stages:
+  - setup
+  - test
+
+variables:
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+
+# Define a hidden job to be used with extends
+# Better than default to avoid activating cache for all jobs
+.dependencies_cache:
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm
+    policy: pull
+
+setup:
+  stage: setup
+  script:
+    - npm install
+  extends: .dependencies_cache
+  cache:
+    policy: pull-push
+  artifacts:
+    expire_in: 1h
+    paths:
+      - node_modules
+      - package-lock.json
+
+test_async:
+  stage: test
+  script:
+    - node ./specs/start.js ./specs/async.spec.js
+
+test_db:
+  stage: test
+  script:
+    - node ./specs/start.js ./specs/db-postgres.spec.js
+```
+
+
 
 ### Reference:
 
