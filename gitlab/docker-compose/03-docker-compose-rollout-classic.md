@@ -2,6 +2,10 @@
 
 ## Evolutions-Phase 3: 
 
+### Vorbereitung: 
+
+  * SSH_SERVER_KEY (private key), SERVER_IP als Variablen in Settings -> CI/CD angelegt werden. 
+
 ### Schritt 1: cms/docker-compose.yaml in gitlab anlegen 
 
 ```
