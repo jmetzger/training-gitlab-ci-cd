@@ -27,6 +27,9 @@
   1. gitlab-ci/cd - Workflows
      * [Workflows + only start by starting pipeline](#workflows-+-only-start-by-starting-pipeline)
      * [Templates for branch and merge request workflow](#templates-for-branch-and-merge-request-workflow)
+    
+  1. gitlab-ci/cd - Variables
+     * [Variablen in Pipelines Web-Dialog anzeigen](#variablen-in-pipelines-web-dialog-anzeigen)
 
   1. gitlab - ci/cd - Pipelines strukturieren / Templates 
      * [Includes mit untertemplates](#includes-mit-untertemplates)
@@ -46,6 +49,22 @@
      * [Docker compose local testen](#docker-compose-local-testen)
      * [Docker compose über ssh](#docker-compose-über-ssh)
      * [Docker compose classic über scp](#docker-compose-classic-über-scp)
+
+  1. Performance / Caching 
+     * [Wann ist eine Pipeline langsam ?](#wann-ist-eine-pipeline-langsam-)
+     * [Caching->cache in gitlab](#caching->cache-in-gitlab)
+    
+  1. Matrix = Loops
+     * [Matrix=Loops, Jobs mehrmals ausführen](#matrix=loops-jobs-mehrmals-ausführen)
+    
+  1. Monitoring gitlab
+     * [Monitoring gitlab good or bad ?](#monitoring-gitlab-good-or-bad-)
+    
+  1. Security
+     * [Container Scanning](#container-scanning)
+    
+  1. Environments
+     * [Environments](#environments)
 
   1. Documentation 
      * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
@@ -79,9 +98,6 @@
      * [Selbst gebauten Container manuell ausführen](#selbst-gebauten-container-manuell-ausführen)
      * [Neues Image in gitlab ci/cd aus gitlab registry verwenden](#neues-image-in-gitlab-cicd-aus-gitlab-registry-verwenden)
     
-  1. gitlab ci/cd - container scanning
-      * [Container Scanning](gitlab/cases/container-scanning.md)
-
   1. Tipps&Tricks 
      * [Image/Container debuggen in mit gitlab ci/cd](#imagecontainer-debuggen-in-mit-gitlab-cicd)
      
@@ -422,8 +438,7 @@ Pros (SaaS):
 
 ```
 ## Wir können einen hidden job definieren, der dann beim Job verwendet wird.
-## Kommandos von before_script und script überschreiben sich nicht gegenseitig 
-
+## Kommandos von before_script und script überschreiben sich nicht gegenseitig
 
 .install_dependencies:
   before_script:
@@ -498,10 +513,10 @@ So all does not work here, because we fetch a specific branch with refspec
 
 ## Schritt 2: Ein Standard-Template als Ausgangsbasis holen 
 ## Get default ci-Template 
-CI-CD -> Pipelines -> Try Test-Template 
+Build -> Pipeline - Editor
 
-## Testtemplate wird in file gitlab-ci.yaml angelegt. 
-## Es erscheint unter: CI-CD -> Editor 
+## Es erscheint der Editor mit einem Test-Template  
+
 
 1x speichern und committen.
 
@@ -712,7 +727,7 @@ Jobs can output an archive of files and directories. This output is known as a j
 You can download job artifacts by using the GitLab UI or the API.
 ```
 
-### Example: Creating an artifact 
+### Example 1: Creating an artifact 
 
 ```
 ## .gitlab-ci.yml 
@@ -730,7 +745,7 @@ create_txt:
 
 ```
 
-### Example creating artifacts with wildcards and different name 
+### Example 2: creating artifacts with wildcards and different name 
 
 ```
 
@@ -751,7 +766,7 @@ create_txt:
 
 ```
 
-### Artifakte und Name aus Variable vergeben 
+### Example 3: Artifakte und Name aus Variable vergeben 
 
   * If your branch-name contains forward slashes
     * (for example feature/my-feature) 
@@ -777,7 +792,7 @@ create_txt:
 
 ```
 
-### Alle files in einem Verzeichnis recursive 
+### Example 4: Alle files in einem Verzeichnis recursive 
 
 ```
 ## .gitlab-ci.yml 
@@ -798,7 +813,7 @@ create_txt:
 
 ```
 
-### Artifakte und Bedingungen 
+### Example 5: Artifakte und Bedingungen 
 
 ```
 ## nur artifact erstellen, wenn ein commit-tag gesetzt ist. 
@@ -840,13 +855,17 @@ create_txt:
 
 
 
-### Passing artifacts between stages (enabled by default) 
+### Passing 1: Passing artifacts between stages (enabled by default) 
 
 ```
 default:
-  image: ubuntu:20.04
+  image: ubuntu:22.04
 
 ## stages are set to build, test, deploy by default 
+stages:
+  - build
+  - test
+  - deploy 
 
 build:
   stage: build
@@ -876,7 +895,7 @@ deploy:
 
 ```
 
-### Passing artifacts between stages (enabled by default) - only writing it in stage: build 
+### Passing 2: artifacts between stages (enabled by default) - only writing it in stage: build 
 
 ```
 ## only change in stage: build 
@@ -908,7 +927,7 @@ deploy:
 
 ```
 
-### Passing artifacts (+ommitting test - stage) 
+### Passing 3: artifacts (+ommitting test - stage) 
 
   * You can decide in which state you need the artifacts 
 
@@ -1044,6 +1063,30 @@ build-stage:
 ### Kommandos auf Zielsystem mit ssh ausführen (auch multiline)
 
 
+### Preparation on Server 
+
+#### Step 1: Create public/private key 
+
+```
+## on destinationn server
+ssh-keygen
+cd .ssh
+ls -la
+```
+
+#### Step 2: Add id_rsa.pub /Public key to authorized_keys 
+
+```
+cat id_rsa.pub >> authorized_keys
+```
+
+#### Step 3: Add id_rsa (private key) to GITLAB ci/cd -> Settings -> CI/CD as new Variable 
+```
+cat id_rsa
+## copy content and add as content to new variable SERVER_SSH_KEY
+## DO not set variable as protected 
+```
+
 ### create good.sh in root-folder of repo (git) 
 
 ```
@@ -1062,8 +1105,6 @@ workflow:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "web"'
 
-default:
-  image: alpine
 stages:          # List of stages for jobs, and their order of execution
   - deploy 
   
@@ -1073,7 +1114,6 @@ deploy-job:
    image: ubuntu 
 
    variables:
-     # GIT_STRATEGY: none
     CMD: |
       echo hello-you; 
       ls -la;
@@ -1082,40 +1122,35 @@ deploy-job:
     - apt -y update
     - apt install -y openssh-client
     - eval $(ssh-agent -s)
-    - echo "$TOMCAT_SERVER_SSH_KEY" | tr -d '\r' | ssh-add -
+    - echo "$SERVER_SSH_KEY" | tr -d '\r' | ssh-add -
     - ls -la
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
-    - ssh-keyscan $TOMCAT_SERVER_IP >> ~/.ssh/known_hosts
+    - ssh-keyscan $SERVER_IP >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
-    - echo $TOMCAT_SERVER_SSH_KEY
+##- echo $SERVER_SSH_KEY
 
    script:
-    #- chmod 600 id_rsa
-    #- scp -i id_rsa -o StrictHostKeyChecking=no target/*.war root@$TOMCAT_SERVER_IP:$TOMCAT_SERVER_WEBDIR 
-     # - scp -o StrictHostKeyChecking=no target/*.war root@$TOMCAT_SERVER_IP:$TOMCAT_SERVER_WEBDIR
-     # - cd $TOMCAT_SERVER_WEBDIR
-     # - ls -la
      - echo 'V1 - commands in line'
      ############### ! Important 
      # For ssh to exit on error, start your commands with first command set -e 
      # - This will exit the executed on error with return - code > 0
      # - AND will throw an error from ssh and in pipeline  
      ###############
-     - ssh root@$TOMCAT_SERVER_IP -C "set -e; ls -la; cd /var/lib/tomcat9/webapps; ls -la;"
+     - ssh root@$SERVER_IP -C "set -e; ls -la; cd $SERVER_WEBDIR; ls -la;"
      - echo 'V2 - content of Variable $CMD'
-     - ssh root@$TOMCAT_SERVER_IP -C $CMD
+     - ssh root@$SERVER_IP -C $CMD
      - echo 'V3 - script locally - executed remotely'
-     - ssh root@$TOMCAT_SERVER_IP < good.sh
+     - ssh root@$SERVER_IP < good.sh
      - echo 'V4 - script in heredoc'
      - |
-      ssh root@$TOMCAT_SERVER_IP bash -s << HEREDOC
+      ssh root@$SERVER_IP bash -s << HEREDOC
         echo "hello V4"
         ls -la
       HEREDOC
      - echo 'V5 - copy script and execute'
-     - scp good.sh root@$TOMCAT_SERVER_IP:/usr/local/bin/better.sh
-     - ssh root@$TOMCAT_SERVER_IP -C "chmod u+x /usr/local/bin/better.sh; better.sh"
+     - scp good.sh root@$SERVER_IP:/usr/local/bin/better.sh
+     - ssh root@$SERVER_IP -C "chmod u+x /usr/local/bin/better.sh; better.sh"
 
 ```
 
@@ -1170,6 +1205,50 @@ You can configure your pipeline to run every time you commit changes to a branch
 https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Workflows/Branch-Pipelines.gitlab-ci.yml
 
 ```
+
+## gitlab-ci/cd - Variables
+
+### Variablen in Pipelines Web-Dialog anzeigen
+
+
+### So wird es nicht angezeigt:
+
+```
+variables:
+  MAX_PERFORMANCE: 'true'
+```
+
+### So wird es angezeigt:
+
+```
+
+variables:
+   MAX_PERFORMANCE: 
+     description: Decide if to run max_performance 'true' or 'false'
+     value: 'false'
+```
+
+![image](https://github.com/jmetzger/training-gitlab-ci-cd/assets/1933318/8047c095-6d99-4576-b86a-fa6ba0953e47)
+
+### Mit Optionen 
+
+#### So hinterlegen 
+
+```
+variables:
+   MAX_PERFORMANCE: 
+     description: Decide if to run max_performance 'true' or 'false'
+     value: 'false'
+     options:
+       - 'false'
+       - 'true'
+
+```
+
+#### So sieht es aus:
+
+![image](https://github.com/jmetzger/training-gitlab-ci-cd/assets/1933318/6d894cc2-e87e-4896-8bae-ee3e199d13d2)
+
 
 ## gitlab - ci/cd - Pipelines strukturieren / Templates 
 
@@ -1256,7 +1335,7 @@ project2.build-job:
 ### Parent/Child Pipeline
 
 
-### gitlab-ci.yml (no subfolders) 
+### Variante 1: gitlab-ci.yml (no subfolders) 
 
 ```
 project1:
@@ -1273,7 +1352,7 @@ project2:
     - changes: [project2/*]
 ```
 
-### gitlab-ci.yml (with subfolders) 
+### Variante 2: gitlab-ci.yml (with subfolders) 
 
 ```
 project1:
@@ -1290,7 +1369,7 @@ project2:
     - changes: [project2/**/*]
 ```
 
-### gitlab-ci.yml (with subfolders ....) 
+### Variante 3: gitlab-ci.yml (with subfolders ....) 
 
   * Not able to be started on run pipeline (manually)
   * But, when it is triggered on changes
@@ -1343,6 +1422,36 @@ project2.build-job:
     - echo $CI_PIPELINE_SOURCE
 ```
 
+### Alternative mit anderen stages in child 
+
+```
+stages:
+  - project1-build
+  - project1-test
+  - project1-deploy 
+
+
+project1.build-job:
+  stage: project1-build
+  script:
+    - echo "in project1 .. building"
+    - echo $CI_PIPELINE_SOURCE
+
+project1.test-job:
+  stage: project1-test
+  script:
+    - echo "in project1 .. test"
+    - echo $CI_PIPELINE_SOURCE
+
+project1.deploy-job:
+  stage: project1-deploy
+  script:
+    - echo "in project1 .. deploy"
+    - echo $CI_PIPELINE_SOURCE
+```
+
+
+
 ### Refs:
 
   * https://docs.gitlab.com/ee/ci/pipelines/downstream_pipelines.html
@@ -1350,7 +1459,7 @@ project2.build-job:
 ### Multiproject Pipeline / Downstream
 
 
-### Practical Example 
+### Practical Example (Variant 1)
 
 #### Trigger - job in .gitlab-ci.yml 
 
@@ -1362,6 +1471,10 @@ trigger_job:
 ```
 
 #### New repo -> training.tn1/jochentest-multi1 
+
+```
+.gitlab-ci.yml
+```
 
 ```
 ## This is how my other project looks like 
@@ -1383,7 +1496,7 @@ build-job:       # This job runs in the build stage, which runs first.
     - echo "Show us the pipeline source $CI_PIPELINE_SOURCE"
 ```
 
-### Version 1: Deploy after all Build triggers are done 
+### Practical Example (Variant 2): Deploy after all Build triggers are done 
 
 ```
 stages:
@@ -1625,9 +1738,746 @@ build:
 
 ### Docker compose local testen
 
+
+
+
+### Evolutions-Phase 1: Testen eines docker compose file lokal auf unserem Zielsysem
+
+```
+## public/private key muss eingerichtet sein
+ssh root@<ziel-ip>
+```
+
+#### Docker installieren 
+
+```
+sudo apt-get update
+sudo apt-get -y install \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+```
+
+```
+### Läuft der Dienst (dockerd) 
+systemctl status docker 
+```
+
+
+```
+mkdir cms
+cd cms
+nano docker-compose.yaml
+```
+
+```
+services:
+  db:
+    # We use a mariadb image which supports both amd64 & arm64 architecture
+    image: mariadb:10.6.4-focal
+    # If you really want to use MySQL, uncomment the following line
+    #image: mysql:8.0.27
+    command: '--default-authentication-plugin=mysql_native_password'
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=somewordpress
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=wordpress
+    expose:
+      - 3306
+      - 33060
+  wordpress:
+    image: wordpress:latest
+    volumes:
+      - wp_data:/var/www/html
+    ports:
+      - 80:80
+    restart: always
+    environment:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress
+      - WORDPRESS_DB_NAME=wordpress
+volumes:
+  db_data:
+  wp_data:
+
+```
+
+```
+docker compose up -d
+```
+
 ### Docker compose über ssh
 
+
+### Evolutions-Phase 2: Anwenden eines Docker Compose files über ssh 
+
+#### Vorbereitung: Im Repo cms/docker-compose.yaml einfügen 
+
+```
+services:
+  db:
+    # We use a mariadb image which supports both amd64 & arm64 architecture
+    image: mariadb:10.6.4-focal
+    command: '--default-authentication-plugin=mysql_native_password'
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=somewordpress
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=wordpress
+    expose:
+      - 3306
+      - 33060
+  wordpress:
+    image: wordpress:latest
+    volumes:
+      - wp_data:/var/www/html
+    ports:
+      - 80:80
+    restart: always
+    environment:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress
+      - WORDPRESS_DB_NAME=wordpress
+volumes:
+  db_data:
+  wp_data:
+```
+
+#### Schritt 1: gitlab-ci.yaml 
+
+```
+
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+
+stages:          # List of stages for jobs, and their order of execution
+  - deploy 
+
+deploy-job:
+   stage: deploy   
+   image: ubuntu 
+  
+   before_script:
+    - apt-get -y update
+    - apt-get install -y openssh-client ca-certificates curl gnupg lsb-release
+    - mkdir -p /etc/apt/keyrings
+    # We want the newest version from docker
+    # version from ubuntu repo does not work (docker compose) - version too old 
+    - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg   
+    - echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+    - apt-get update -y
+    - apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+    - eval $(ssh-agent -s)
+    - echo "$SERVER_SSH_KEY" | tr -d '\r' | ssh-add -
+    - ls -la
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $SERVER_IP >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    # - echo $SERVER_SSH_KEY
+    # eventually not needed
+    #- echo $SERVER_SSH_KEY >  ~/.ssh/id_rsa
+    #- chmod 600 ~/.ssh/id_rsa 
+
+   script:
+     - echo 'Deploying wordpress'
+     - cd cms
+     - export DOCKER_HOST="ssh://root@$TOMCAT_SERVER_IP"
+     - docker info
+     - docker container ls
+     - docker compose up -d
+
+```
+
+
 ### Docker compose classic über scp
+
+
+### Evolutions-Phase 3: 
+
+#### Vorbereitung: 
+
+  * SSH_SERVER_KEY (private key), SERVER_IP als Variablen in Settings -> CI/CD angelegt werden. 
+
+#### Schritt 1: cms/docker-compose.yaml in gitlab anlegen 
+
+```
+services:
+  db:
+    # We use a mariadb image which supports both amd64 & arm64 architecture
+    image: mariadb:10.6.4-focal
+    command: '--default-authentication-plugin=mysql_native_password'
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=somewordpress
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=wordpress
+    expose:
+      - 3306
+      - 33060
+  wordpress:
+    image: wordpress:latest
+    volumes:
+      - wp_data:/var/www/html
+    ports:
+      - 80:80
+    restart: always
+    environment:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress
+      - WORDPRESS_DB_NAME=wordpress
+volumes:
+  db_data:
+  wp_data:
+```
+
+#### Schritt 2: gitlab-ci.yaml 
+
+```
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+
+stages:          # List of stages for jobs, and their order of execution
+  - deploy 
+
+deploy-job:
+   stage: deploy   
+   image: ubuntu 
+  
+   before_script:
+    - apt-get -y update
+    - apt-get install -y openssh-client 
+    - eval $(ssh-agent -s)
+    - echo "$SERVER_SSH_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $SERVER_IP >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    #- echo $SERVER_SSH_KEY
+    # eventually not neededrsa 
+
+   script:
+     - echo 'Deploying wordpress'
+
+     - |
+       ssh root@$SERVER_IP bash -s << HEREDOC
+        cd
+        mkdir -p cms 
+       HEREDOC 
+     - scp cms/docker-compose.yaml root@$SERVER_IP:~/cms/
+     - ssh root@$SERVER_IP -C "cd; cd cms; docker compose up -d"
+
+```
+
+#### Schritt 3: Pipeline manuell über pipeline menü starten 
+
+## Performance / Caching 
+
+### Wann ist eine Pipeline langsam ?
+
+
+### Repo ist sehr gross
+
+  * was kann ich tun: depth niedriger setzen, statt 20
+  * Brauche ich das Repo in dem Job ?-> ansonsten GIT_STRATEGY: none 
+
+### Image ist zu gross 
+
+  * Image verschlanken, wenn es keine Standard-Image ist, im Image-Bauprozes
+
+### Caching 
+
+  * Wenn caching verwendet und wenn ja richtig ?
+
+### Scheduling in der Pipelines 
+
+  * sehr lange Laufzeiten, weil einzelne Stages sehr lange brauchen (standardverhalten: jeder Stage muss komplett fertig sein, damit der nächste Stage starten kann)
+  * Lösung: Acyclice Pipelines: z.B. build_a -> test_a -> deploy_a kann parallel laufen zu build_b -> test_b -> deploy_b
+
+### Job abspecken / zu langsam 
+
+  * Muss ich wirklich alles in diesem Job so machen oder kann ich Sachen weglassen (weil redundant, nicht notwendig)
+
+### Brauche ich artifakte in jedem Job, ansonsten deaktivieren
+
+```
+## only change in stage: build 
+image: ubuntu:20.04
+
+## stages are set to build, test, deploy by default 
+
+build:
+  stage: build
+  script:
+    - echo "in building..." >> ./control.txt
+  artifacts:
+    paths:
+    - control.txt
+    expire_in: 1 week
+
+my_unit_test:
+  stage: test
+  dependencies: []
+  script:
+    - ls -la 
+    - echo "no control.txt here"
+    - ls -la 
+
+deploy:
+  stage: deploy
+  script:
+    - ls
+    - cat control.txt
+```
+
+### Caching->cache in gitlab
+
+
+### Key facts 
+
+  * Caches are reused in pipelines
+  * Use to cache depenedencies (libraries a.s.o)
+  * Use artifacts, if data is created by a job
+  * the cache is stored in the same place where GitLab Runner is installed. If the distributed cache is configured, S3 works as storage.
+
+### Example 
+
+#### Prepare 
+
+  * Import this repo: https://gitlab.com/gitlab-examples/nodejs.git
+
+#### Iteration 1: Use a cache 
+
+```
+image: node:latest # (1)
+
+## This folder is cached between builds
+cache:
+  paths:
+    - node_modules/ # (2)
+
+test_async:
+  script:
+    - npm install # (3)
+    - node ./specs/start.js ./specs/async.spec.js
+
+test_db:
+  script:
+    - npm install # (4)
+    - node ./specs/start.js ./specs/db-postgres.spec.js
+
+```
+
+#### Iteration 2: Modify .gitlab-ci.yaml 
+
+```
+image: node:16.3.0 # (1)
+
+stages:
+  - setup
+  - test
+
+variables:
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+
+## Define a hidden job to be used with extends
+## Better than default to avoid activating cache for all jobs
+.dependencies_cache:
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm
+    policy: pull
+
+setup:
+  stage: setup
+  script:
+    - npm install
+  extends: .dependencies_cache
+  cache:
+    policy: pull-push
+  artifacts:
+    expire_in: 1h
+    paths:
+      - node_modules
+
+test_async:
+  stage: test
+  script:
+    - node ./specs/start.js ./specs/async.spec.js
+
+test_db:
+  stage: test
+  script:
+    - node ./specs/start.js ./specs/db-postgres.spec.js
+```
+
+#### Iteration 3: Modify .gitlab-ci.yaml 
+
+  * package-lock.json bauen (npm install) und als artifact zur Verfügung stellen 
+
+```
+image: node:16.3.0 # (1)
+
+stages:
+  - setup
+  - test
+
+variables:
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+
+## Define a hidden job to be used with extends
+## Better than default to avoid activating cache for all jobs
+.dependencies_cache:
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm
+    policy: pull
+
+setup:
+  stage: setup
+  script:
+    - npm install
+  extends: .dependencies_cache
+  cache:
+    policy: pull-push
+  artifacts:
+    expire_in: 1h
+    paths:
+      - node_modules
+      - package-lock.json
+
+test_async:
+  stage: test
+  script:
+    - node ./specs/start.js ./specs/async.spec.js
+
+test_db:
+  stage: test
+  script:
+    - node ./specs/start.js ./specs/db-postgres.spec.js
+```
+
+```
+## Artifact runterladen, Inhalt aus package-lock.json rauskopieren und Datei in Repo erstellen
+## package-lock.json und Inhalt einfügen
+```
+
+```
+## Änderung von .gitlab-ci.yaml -> artifaction package-json.lock rausgenommen und ein npm ci gemacht in setup
+image: node:16.3.0 # (1)
+
+stages:
+  - setup
+  - test
+
+variables:
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+
+## Define a hidden job to be used with extends
+## Better than default to avoid activating cache for all jobs
+.dependencies_cache:
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm
+    policy: pull
+
+setup:
+  stage: setup
+  script:
+    - npm ci
+  extends: .dependencies_cache
+  cache:
+    policy: pull-push
+  artifacts:
+    expire_in: 1h
+    paths:
+      - node_modules
+
+test_async:
+  stage: test
+  script:
+    - node ./specs/start.js ./specs/async.spec.js
+
+test_db:
+  stage: test
+  script:
+    - node ./specs/start.js ./specs/db-postgres.spec.js
+```
+
+#### Reference:
+
+  * https://dev.to/drakulavich/gitlab-ci-cache-and-artifacts-explained-by-example-2opi
+
+## Matrix = Loops
+
+### Matrix=Loops, Jobs mehrmals ausführen
+
+
+### Example 1
+
+```
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script:
+    - echo "Building $DISTRIBUTION on $ARCH"
+  parallel:
+    matrix:
+      - DISTRIBUTION: [rhel8, ubuntu20]
+        ARCH: [x64,x86]
+
+test:
+  stage: test
+  script:
+    - echo "Testing $DISTRIBUTION on $ARCH"
+  parallel:
+    matrix:
+      - DISTRIBUTION: [rhel8, ubuntu20]
+        ARCH: [x64,x86]
+```
+
+### Example 1a
+
+```
+stages:
+  - build
+  - test
+
+.parallel-matrix:
+  parallel:
+    matrix:
+      - DISTRIBUTION: [rhel8, ubuntu20]
+        ARCH: [x64,x86]
+
+build:
+  stage: build
+  extends: .parallel-matrix
+  script:
+    - echo "Building $DISTRIBUTION on $ARCH"
+ 
+
+test:
+  stage: test
+  extends: .parallel-matrix
+  script:
+    - echo "Testing $DISTRIBUTION on $ARCH"
+```
+
+### Example 2
+
+```
+stages:
+- matrix
+
+.parallel-matrix:
+  parallel:
+    matrix:
+      - CLOUD: 
+        - aws
+        - azure
+        - gcp
+        ARCH:
+        - kubernetes
+        - service-mesh
+
+Matrix:
+  stage: matrix
+  image: alpine:latest
+  extends: .parallel-matrix
+  script:
+  - echo "Hello from $ARCH from $CLOUD"
+
+```
+
+
+### Reference:
+
+  * https://yashwanth-l.medium.com/gitlab-ci-parallel-with-matrix-7bd3acca8f70
+
+
+## Monitoring gitlab
+
+### Monitoring gitlab good or bad ?
+
+
+### Error-Tracking 
+
+ * With Sentry, needs to be implement with sdk in application 
+
+### Alerts 
+
+ * Can be triggered by Prometheus or http-Endpoint 
+
+### Incidents 
+
+ * Incidents manuell anlegen 
+
+### Service Desk 
+
+  * Emails können hier hingeschickt werden und tauchen als Incidents auf.
+
+## Security
+
+### Container Scanning
+
+
+### Walkthrough (Variant 1)
+
+```
+include:
+  - template: Security/Container-Scanning.gitlab-ci.yml
+
+container_scanning:
+  variables:
+     CS_IMAGE: registry.gitlab.com/training.tn11/jochentest1:latest
+```
+
+### Walkthrough (Variant 2) - including building image 
+
+```
+include:
+  - template: Jobs/Build.gitlab-ci.yml
+  - template: Security/Container-Scanning.gitlab-ci.yml
+
+container_scanning:
+  variables:
+    CS_DEFAULT_BRANCH_IMAGE: $CI_REGISTRY_IMAGE/$CI_DEFAULT_BRANCH:$CI_COMMIT_SHA
+```
+
+
+### Ref:
+
+  * https://docs.gitlab.com/ee/user/application_security/container_scanning/
+
+## Environments
+
+### Environments
+
+
+### Variant 1: Add Environment in Operate -> Environments
+
+```
+1. In Operate -> Deployment  neues Environment Testing anlegen 
+keine URL angeben - nur name 
+
+2. In Project -> Settings->CI/CD-> Variables
+
+Variable 1:
+CODE_BRANCH   testing   (Environment: Testing) 
+CODE_BRANCH   main      (Environment: Production) 
+
+3. Kleines Code-Schnipsel 
+(normalerweise wird es in deploy verwenden 
+und hat dort noch Zusatzintegrationen)
+```
+
+```
+stages:
+  - build
+
+
+build-prod:
+    stage: build
+    environment:
+        name: production
+        action: prepare
+    script:
+       echo "That is the code branch "$CODE_BRANCH 
+
+build-testing:
+    stage: build
+    environment:
+        name: testing
+        action: prepare
+    script:
+       echo "That is the code branch "$CODE_BRANCH
+
+```
+
+### Variant 2: Add environment statically through gitlab-ci.yaml 
+
+```
+## add enviroment to .gitlab-ci.yaml
+stages:
+  - deploy
+
+deploy_staging:
+  stage: deploy
+  script:
+    - echo "deploy to staging"
+    - echo "$CODE_BRANCH"
+  environment:
+     name: staging
+  when: manual
+
+deploy_production:
+  stage: deploy
+  script:
+    - echo "deploy to production"
+    - echo "$CODE_BRANCH"
+  environment:
+     name: production
+  when: manual
+```
+
+```
+## Start pipeline - if not already done after saving
+```
+
+```
+## Now enter 2 variables in Settings -> CI/CD Variables
+For CODE_BRANCH / production
+For CODE_BRANCH / staging 
+```
+
+![image](https://github.com/jmetzger/training-gitlab-ci-cd/assets/1933318/db608b3d-22f3-4fd0-b1ec-666a38b24032)
+
+```
+## Start jobs manually in pipeline
+## and watch log for CODE_BRANCH
+```
+
+![image](https://github.com/jmetzger/training-gitlab-ci-cd/assets/1933318/c8c4dcb4-78c3-4a3c-90d8-3bce36c2dce4)
+
 
 ## Documentation 
 
@@ -1861,8 +2711,6 @@ Eintragen von DOCKER_AUTH_CONFIG -> in Settings -> CI/CD -> Variables
 ### Refs:
 
   * https://mherman.org/blog/gitlab-ci-private-docker-registry/
-
-## gitlab ci/cd - container scanning
 
 ## Tipps&Tricks 
 
