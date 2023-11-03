@@ -28,3 +28,32 @@ test:
 
 ## Example 2
 
+```
+stages:
+- matrix
+
+.parallel-matrix:
+  parallel:
+    matrix:
+      - CLOUD: 
+        - aws
+        - azure
+        - gcp
+        ARCH:
+        - kubernetes
+        - service-mesh
+
+Matrix:
+  stage: matrix
+  image: alpine:latest
+  extends: .parallel-matrix
+  script:
+  - echo "Hello from $ARCH from $CLOUD"
+
+```
+
+
+## Reference:
+
+  * https://yashwanth-l.medium.com/gitlab-ci-parallel-with-matrix-7bd3acca8f70
+
