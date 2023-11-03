@@ -54,6 +54,9 @@
      * [Wann ist eine Pipeline langsam ?](performance/when-is-pipeline-slow.md)
      * [Caching->cache in gitlab](gitlab/caching/cache.md)
     
+  1. Matrix = Loops
+     * [Matrix=Loops, Jobs mehrmals ausführen](gitlab/matrix.md)
+    
   1. Monitoring gitlab
      * [Monitoring gitlab good or bad ?](monitoring/overview.md)
 
