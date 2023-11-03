@@ -59,6 +59,9 @@
     
   1. Monitoring gitlab
      * [Monitoring gitlab good or bad ?](monitoring/overview.md)
+    
+  1. Security
+     * [Container Scanning](gitlab/cases/container-scanning.md)
 
   1. Documentation 
      * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
@@ -92,9 +95,6 @@
      * [Selbst gebauten Container manuell ausführen](/gitlab/docker/docker-image-manuell-ausfuehren.md)
      * [Neues Image in gitlab ci/cd aus gitlab registry verwenden](gitlab/global/default/image.md)
     
-  1. gitlab ci/cd - container scanning
-      * [Container Scanning](gitlab/cases/container-scanning.md)
-
   1. Tipps&Tricks 
      * [Image/Container debuggen in mit gitlab ci/cd](gitlab/debug/container-kennenlernen.md)
      
