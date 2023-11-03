@@ -50,8 +50,9 @@
      * [Docker compose über ssh](gitlab/docker-compose/02-docker-compose-ssh.md)
      * [Docker compose classic über scp](gitlab/docker-compose/03-docker-compose-rollout-classic.md)
 
-  1. Performance
+  1. Performance / Caching 
      * [Wann ist eine Pipeline langsam ?](performance/when-is-pipeline-slow.md)
+     * [Caching in gitlab](gitlab/caching/cache.md)
     
   1. Monitoring gitlab
      * [Monitoring gitlab good or bad ?](monitoring/overview.md)
