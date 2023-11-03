@@ -2,7 +2,7 @@
 
 ## Evolutions-Phase 2: Anwenden eines Docker Compose files über ssh 
 
-### Vorbereitung: Im Repo docker-compose.yaml einfügen 
+### Vorbereitung: Im Repo cms/docker-compose.yaml einfügen 
 
 ```
 services:
