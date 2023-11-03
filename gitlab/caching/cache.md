@@ -11,7 +11,7 @@
 
 ### Prepare 
 
-  * Import this repo: https://gitlab.com/gitlab-examples/nodejs/-/blob/master/.gitlab-ci.yml
+  * Import this repo: https://gitlab.com/gitlab-examples/nodejs.git
 
 ### Iteration 1: Use a cache 
 
