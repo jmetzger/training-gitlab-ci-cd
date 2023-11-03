@@ -81,7 +81,7 @@ test_db:
     - node ./specs/start.js ./specs/db-postgres.spec.js
 ```
 
-### Iteration 2: Modify .gitlab-ci.yaml 
+### Iteration 3: Modify .gitlab-ci.yaml 
 
   * package-lock.json bauen (npm install) und als artifact zur Verfügung stellen 
 
@@ -129,6 +129,12 @@ test_db:
   script:
     - node ./specs/start.js ./specs/db-postgres.spec.js
 ```
+
+```
+# Artifact runterladen, Inhalt aus package-lock.json rauskopieren und Datei in Repo erstellen
+# package-lock.json und Inhalt einfügen
+```
+
 
 
 
