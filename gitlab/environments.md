@@ -1,5 +1,6 @@
 # Environments 
 
+## Variant 1: Add Environment in Operate -> Environments
 
 ```
 1. In Operate -> Deployment  neues Environment Testing anlegen 
@@ -38,3 +39,41 @@ build-testing:
        echo "That is the code branch "$CODE_BRANCH
 
 ```
+
+## Variant 2: Add environment statically through gitlab-ci.yaml 
+
+```
+# add enviroment to .gitlab-ci.yaml
+stages:
+  - deploy
+
+deploy_staging:
+  stage: deploy
+  script:
+    - echo "deploy to staging"
+    - echo "$CODE_BRANCH"
+  environment:
+     name: staging
+  when: manual
+
+deploy_production:
+  stage: deploy
+  script:
+    - echo "deploy to production"
+    - echo "$CODE_BRANCH"
+  environment:
+     name: production
+  when: manual
+```
+
+```
+# Start pipeline - if not already done after saving
+```
+
+```
+# Now enter 2 variables in Settings -> CI/CD Variables
+For CODE_BRANCH / production
+For CODE_BRANCH / staging 
+```
+
+![image](https://github.com/jmetzger/training-gitlab-ci-cd/assets/1933318/db608b3d-22f3-4fd0-b1ec-666a38b24032)
