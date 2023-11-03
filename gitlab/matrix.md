@@ -26,6 +26,33 @@ test:
         ARCH: [x64,x86]
 ```
 
+## Example 1a
+
+```
+stages:
+  - build
+  - test
+
+.parallel-matrix:
+    parallel:
+      matrix:
+        - DISTRIBUTION: [rhel8, ubuntu20]
+          ARCH: [x64,x86]
+
+build:
+  stage: build
+  extends: .parallel-matrix
+  script:
+    - echo "Building $DISTRIBUTION on $ARCH"
+ 
+
+test:
+  stage: test
+  extends: .parallel-matrix
+  script:
+    - echo "Testing $DISTRIBUTION on $ARCH"
+```
+
 ## Example 2
 
 ```
