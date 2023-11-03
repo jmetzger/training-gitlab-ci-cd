@@ -77,3 +77,11 @@ For CODE_BRANCH / staging
 ```
 
 ![image](https://github.com/jmetzger/training-gitlab-ci-cd/assets/1933318/db608b3d-22f3-4fd0-b1ec-666a38b24032)
+
+```
+# Start jobs manually in pipeline
+# and watch log for CODE_BRANCH
+```
+
+![image](https://github.com/jmetzger/training-gitlab-ci-cd/assets/1933318/c8c4dcb4-78c3-4a3c-90d8-3bce36c2dce4)
+
