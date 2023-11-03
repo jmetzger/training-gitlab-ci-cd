@@ -62,6 +62,9 @@
     
   1. Security
      * [Container Scanning](gitlab/cases/container-scanning.md)
+    
+  1. Environments
+     * [Environments](gitlab/environments.md)
 
   1. Documentation 
      * [gitlab ci/cd predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
