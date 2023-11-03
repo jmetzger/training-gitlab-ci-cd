@@ -61,7 +61,7 @@ variables:
 setup:
   stage: setup
   script:
-    - npm ci
+    - npm install
   extends: .dependencies_cache
   cache:
     policy: pull-push
