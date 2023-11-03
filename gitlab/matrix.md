@@ -34,10 +34,10 @@ stages:
   - test
 
 .parallel-matrix:
-    parallel:
-      matrix:
-        - DISTRIBUTION: [rhel8, ubuntu20]
-          ARCH: [x64,x86]
+  parallel:
+    matrix:
+      - DISTRIBUTION: [rhel8, ubuntu20]
+        ARCH: [x64,x86]
 
 build:
   stage: build
