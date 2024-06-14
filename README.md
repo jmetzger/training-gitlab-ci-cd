@@ -21,7 +21,7 @@
      * [Example Defining and using artifacts](/gitlab/07-example-defining-and-using-artifacts.md)
 
   1. gitlab ci/cd (Artifacts)
-    * [Pass artifacts between jobs in same stage](gitlab/artifacts/pass-between-jobs-in-same-stage.md)
+     * [Pass artifacts between jobs in same stage](gitlab/artifacts/pass-between-jobs-in-same-stage.md)
 
   1. gitlab ci/cd (Praxis II)
      * [Mehrzeile Kommandos in gitlab ci-cd ausführen](/gitlab/jobs/script/multiline.md)
